@@ -74,7 +74,8 @@ function Orb({ active, variant }) {
   const line = light ? '#2f5bff' : active ? '#79e6ff' : '#4aa3ff', node = light ? '#ffb020' : active ? '#ffffff' : '#ffd27a';
   const blend = light ? THREE.NormalBlending : THREE.AdditiveBlending;
   return (
-    <group>
+    // on the home stage everything is lifted so the pedestal sits fully inside the frame
+    <group position={[0, stage ? 0.85 : 0, 0]}>
       {stage && <Pedestal />}
       {/* the Aavtor mark floats at the heart of the orb, facing the viewer while the lattice spins around it */}
       <group ref={markRef} position={[0, stage ? -0.55 : 0, 0]}>

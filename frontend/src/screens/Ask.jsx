@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { BrandLoader } from '@/components/BrandLoader';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowRight, Briefcase, Cpu, History, ShoppingBag, Sparkles, Sun, TriangleAlert } from 'lucide-react';
+import { Activity, ArrowRight, Briefcase, CircleHelp, Cpu, Globe2, History, ShoppingBag, Sparkles, Sun, TrendingUp, Trophy, TriangleAlert } from 'lucide-react';
 import { PIPELINE } from '@/lib/pipeline';
 import { logger } from '@/lib/logger';
 import { runQuery } from '@/services/queryClient';
@@ -12,7 +12,8 @@ import { useLive } from '@/providers/LiveProvider';
 
 const Orb = dynamic(() => import('@/three/Orb'), { ssr: false, loading: () => <BrandLoader overlay label="Loading assistant" tone="light" /> });
 
-const SUGGESTIONS = ['Show sales trend', 'Top performing products', 'Why did sales drop?', 'Market analysis'];
+const SUGGESTIONS = [['Show sales trend', TrendingUp], ['Top performing products', Trophy], ['Why did sales drop?', CircleHelp], ['Market analysis', Globe2]];
+const amount = cr => (cr >= 1 ? `₹ ${cr.toFixed(2)} Cr` : `₹ ${(cr * 100).toFixed(1)} L`);
 const STEP_ICONS = [Sun, ShoppingBag, Cpu, Briefcase];
 const RECENT_KEY = 'businessai.recent.v1';
 
@@ -22,7 +23,7 @@ const saveRecent = q => { try { localStorage.setItem(RECENT_KEY, JSON.stringify(
 export default function AskScreen() {
   const router = useRouter();
   const params = useSearchParams();
-  const { todayCr, status } = useLive();
+  const { todayCr, ordersPerMin, sales, status } = useLive();
   const [query, setQuery] = useState('');
   const [phase, setPhase] = useState('idle'); // idle | processing
   const [progress, setProgress] = useState(-1);
@@ -74,6 +75,7 @@ export default function AskScreen() {
     <div className={'ask ' + (processing ? 'processing' : '')}>
       {!processing && (
         <div className="hero-copy">
+          <span className="eyebrow"><i className={status === 'live' ? 'on' : ''} />AI business analyst · live across 30 states</span>
           <h1>Turn Your Data Into<br /><span><em>Smarter</em> <em>Decisions</em></span></h1>
           <p>Ask anything about your business. Get real-time insights.</p>
         </div>
@@ -86,9 +88,22 @@ export default function AskScreen() {
       {error && <p className="ask-error" role="alert"><TriangleAlert size={16} /> {error}</p>}
       {!processing && (
         <>
-          <div className="chips">{SUGGESTIONS.map(s => <button key={s} onClick={() => { setQuery(s); ask(s); }}>{s}</button>)}</div>
+          <div className="chips">{SUGGESTIONS.map(([s, I]) => <button key={s} onClick={() => { setQuery(s); ask(s); }}><I size={15} />{s}</button>)}</div>
           {recent.length > 0 && <div className="chips recent" aria-label="Recent questions"><History size={14} />{recent.map(s => <button key={s} onClick={() => { setQuery(s); ask(s); }}>{s}</button>)}</div>}
-          {status === 'live' && <p className="ask-live">Today so far: <b>₹ {todayCr.toFixed(1)} Cr</b> across India · updating live</p>}
+          {status === 'live' && (
+            <div className="hero-stats" aria-label="Live business pulse">
+              <section className="hs-card left">
+                <small><Activity size={13} /> Revenue today</small>
+                <b className="hs-big">₹ {todayCr.toFixed(2)} <em>Cr</em></b>
+                <div className="hs-row"><span>Orders / min</span><b>{ordersPerMin}</b></div>
+                <div className="hs-row"><span>Coverage</span><b>30 states</b></div>
+              </section>
+              <section className="hs-card right">
+                <small><span className="hs-dot" /> Latest orders</small>
+                <ul>{sales.slice(0, 3).map(s => <li key={s.id}><span><b>{s.state}</b><em>{s.product} · {s.channel}</em></span><strong>{amount(s.amountCr)}</strong></li>)}</ul>
+              </section>
+            </div>
+          )}
         </>
       )}
       {processing && (

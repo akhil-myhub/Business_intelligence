@@ -139,3 +139,45 @@ main{padding-top:0}
 .hero-copy h1 span em{background:linear-gradient(90deg,#5fe3ff,#8fb4ff);-webkit-background-clip:text;background-clip:text}
 .hero-copy h1 span em+em{background:linear-gradient(90deg,#b49bff,#e29bff);-webkit-background-clip:text;background-clip:text}
 .hero-copy p,.ask-live{text-shadow:0 1px 10px rgba(8,16,50,.6)}
+
+/* ── home: cinematic backdrop, live pulse cards ───────────────────────── */
+.inapp .bg{filter:blur(7px) saturate(1.25) brightness(.9)}
+.inapp .bg:after{background:
+  radial-gradient(ellipse 70% 60% at 50% 42%,transparent 0,rgba(10,18,52,.25) 55%,rgba(8,14,42,.72) 100%),
+  linear-gradient(180deg,rgba(12,22,64,.5),rgba(20,26,78,.18) 40%,rgba(22,20,70,.45))}
+.app.inapp:before{content:'';position:fixed;inset:-20%;z-index:-1;pointer-events:none;opacity:.55;mix-blend-mode:screen;
+  background:radial-gradient(40% 35% at 20% 30%,rgba(60,140,255,.35),transparent 70%),radial-gradient(35% 30% at 80% 70%,rgba(160,90,255,.3),transparent 70%);
+  animation:aurora 22s ease-in-out infinite alternate}
+@keyframes aurora{to{transform:translate3d(4%,-3%,0) rotate(6deg)}}
+
+.eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;padding:6px 14px;border-radius:999px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px);font:500 12.5px var(--head);color:#e6edff;letter-spacing:.01em}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:#9aa8c8}
+.eyebrow i.on{background:#34e08a;box-shadow:0 0 0 0 rgba(52,224,138,.6);animation:ping 1.8s ease-out infinite}
+@keyframes ping{70%{box-shadow:0 0 0 8px rgba(52,224,138,0)}100%{box-shadow:0 0 0 0 rgba(52,224,138,0)}}
+
+.chips button{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);
+  backdrop-filter:blur(16px);padding:11px 18px;font:500 14px var(--head);transition:background .15s,transform .15s,border-color .15s}
+.chips button svg{color:#9fd0ff}
+.chips button:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
+
+.hero-stats{position:fixed;left:0;right:0;bottom:9vh;z-index:2;pointer-events:none;display:flex;justify-content:center;gap:min(600px,40vw);padding-left:60px;align-items:flex-end}
+.hs-card{pointer-events:auto;width:260px;padding:14px 16px;border-radius:16px;text-align:left;color:#fff;
+  background:linear-gradient(160deg,rgba(28,44,110,.62),rgba(18,26,72,.55));border:1px solid rgba(255,255,255,.2);
+  backdrop-filter:blur(22px) saturate(1.4);box-shadow:0 20px 50px -20px rgba(0,0,0,.55);animation:float-in .6s cubic-bezier(.2,.8,.2,1) both}
+.hs-card.right{animation-delay:.12s}
+@keyframes float-in{from{opacity:0;transform:translateY(16px)}}
+.hs-card>small{display:flex;align-items:center;gap:6px;font:600 11px var(--head);text-transform:uppercase;letter-spacing:.08em;color:#bcd0ff}
+.hs-big{display:block;margin:6px 0 10px;font:700 30px var(--head);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.hs-big em{font-style:normal;font-size:16px;color:#bcd0ff}
+.hs-row{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid rgba(255,255,255,.12);font:500 13px var(--head);color:#d8e2ff}
+.hs-row b{font-variant-numeric:tabular-nums;color:#fff}
+.hs-dot{width:7px;height:7px;border-radius:50%;background:#34e08a;animation:ping 1.8s ease-out infinite}
+.hs-card ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:2px}
+.hs-card li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);animation:row-in .35s ease both}
+@keyframes row-in{from{transform:translateY(-6px);background:rgba(125,255,180,.12)}}
+.hs-card li span{display:grid;min-width:0}
+.hs-card li b{font:600 13px var(--head);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hs-card li em{font:400 11.5px var(--head);font-style:normal;color:#bcd0ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hs-card li strong{font:700 13px var(--head);font-variant-numeric:tabular-nums;color:#7dffb4;flex:none}
+@media(max-width:1180px),(max-height:700px){.hero-stats{display:none}}
