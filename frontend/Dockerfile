@@ -4,7 +4,11 @@
 FROM node:22-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+# Prefer a reproducible clean install. If the lock file was generated on a
+# different OS (so it lacks this platform's optional native deps, e.g.
+# @emnapi/* for sharp/unrs-resolver on alpine) `npm ci` fails EUSAGE; fall back
+# to `npm install`, which reconciles the lock for the build platform.
+RUN npm ci || (echo "npm ci failed (lock out of sync for this platform); reconciling with npm install" && npm install --no-audit --no-fund)
 
 FROM node:22-alpine AS build
 WORKDIR /app
