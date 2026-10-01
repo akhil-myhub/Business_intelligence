@@ -1,0 +1,32 @@
+# Single-machine deployment for the BusinessAI frontend.
+# Serves on host port 3547 (other ports on this box are in use).
+#
+#   docker compose up -d --build        # build + start in the background
+#   docker compose logs -f              # follow logs
+#   docker compose down                 # stop and remove
+#
+# Secrets: copy .env.example -> .env and fill SESSION_SECRET / DEMO_USER_* before first run.
+# Sign-in is fail-closed (HTTP 503) in production until those are set.
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: businessai-frontend:latest
+    container_name: businessai-frontend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: "3547"
+      HOSTNAME: 0.0.0.0
+    ports:
+      - "3547:3547"   # host:container — change the left side only if 3547 is taken on the host too
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 3s
+      start_period: 20s
+      retries: 3
