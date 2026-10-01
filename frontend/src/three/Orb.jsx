@@ -38,7 +38,7 @@ function Pedestal() {
 
 function Orb({ active, variant }) {
   const stage = variant === 'stage', light = variant === 'login';
-  const appear = useRef(0), root = useRef(), markRef = useRef(), markScale = useRef(stage ? 1.1 : 1);
+  const appear = useRef(0), root = useRef(), markRef = useRef(), markScale = useRef(stage ? 1.1 : 1), markY = useRef(stage ? -1.3 : 0);
   const group = useRef(), lat = useRef(), rings = useRef([]), pts = useRef(), halo = useRef(), core = useRef();
   const speed = useRef(1);
   const ico = useMemo(() => new THREE.IcosahedronGeometry(1, 2), []);
@@ -60,6 +60,8 @@ function Orb({ active, variant }) {
     // on the home stage the mark is always present: it hovers over the pedestal at idle and grows into the orb's core
     markScale.current += ((stage ? (active ? 1.4 : 1.1) : 1) - markScale.current) * Math.min(1, dt * 3);
     markRef.current.scale.setScalar(markScale.current);
+    // idle: resting just above the pedestal; processing: rises into the orb's core
+    if (stage) { markY.current += ((active ? -0.55 : -1.3) - markY.current) * Math.min(1, dt * 3); markRef.current.position.y = markY.current; }
     const k = speed.current, t = s.clock.elapsedTime, ease = Math.min(1, dt * 3);
     group.current.rotation.y += dt * 0.22 * k;
     lat.current.rotation.x += dt * 0.08 * k;
@@ -78,7 +80,7 @@ function Orb({ active, variant }) {
     <group position={[0, stage ? 0.85 : 0, 0]}>
       {stage && <Pedestal />}
       {/* the Aavtor mark floats at the heart of the orb, facing the viewer while the lattice spins around it */}
-      <group ref={markRef} position={[0, stage ? -0.55 : 0, 0]}>
+      <group ref={markRef} position={[0, stage ? -1.3 : 0, 0]}>
         <Float speed={1.6} floatIntensity={0.45} rotationIntensity={0.08}>
           <AavtorMark3D height={1.6} active={active} />
         </Float>
