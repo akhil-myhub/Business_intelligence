@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'sw
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-jakarta', display: 'swap' });
 
 export const metadata = {
-  title: 'Lumen AI | Business Intelligence',
+  title: 'BusinessAI | Business Intelligence',
   description: 'Conversational analytics workspace'
 };
 

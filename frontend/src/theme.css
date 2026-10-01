@@ -1,0 +1,141 @@
+/* Theme layer — loaded last. Brings every screen to the sign-in page's design language:
+   frosted backdrop, refined glass, brand blue (Aavtor #246FB8 / navy), calm type, consistent controls. */
+
+:root{
+  --brand:#246FB8;--brand-2:#1f63a8;--brand-ink:#0B1530;--brand-soft:rgba(36,111,184,.12);
+  --ink:#0f1d45;--muted:#5d6b90;--line:#e3e8f3;
+  --radius:16px;--radius-sm:10px;
+  --glass:rgba(255,255,255,.86);
+  --shadow:0 1px 0 rgba(255,255,255,.9) inset,0 22px 50px -18px rgba(10,22,70,.5),0 6px 18px rgba(10,22,70,.12);
+  --ring:0 0 0 3px rgba(36,111,184,.18);
+}
+
+/* ── backdrop: frosted in the app, softly blurred behind sign-in ─────────── */
+.bg{inset:-40px;transform:translateZ(0)}
+.inapp .bg{filter:blur(18px) saturate(1.2) brightness(.92)}
+/* light veil: keeps the photo's colour and light (as on sign-in) while giving white text enough contrast */
+.inapp .bg:after{background:
+  radial-gradient(1100px 520px at 50% -8%,rgba(12,24,70,.38),transparent 70%),
+  linear-gradient(180deg,rgba(14,26,72,.34),rgba(24,30,84,.22) 55%,rgba(30,26,90,.3))}
+.app:not(.inapp) .bg{filter:blur(3px) saturate(1.1)}
+.app:not(.inapp) .bg:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,60,.08),rgba(10,20,60,.22))}
+
+/* ── top bar: one frosted strip with brand, nav and actions ─────────────── */
+.topnav{background:rgba(9,16,44,.42);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border-bottom:1px solid rgba(255,255,255,.08);padding:10px 24px 10px 16px;margin-bottom:14px}
+.brand-link{display:inline-flex;align-items:center;gap:10px;color:#fff;text-decoration:none;padding-right:10px;margin-right:4px;border-right:1px solid rgba(255,255,255,.14)}
+.brand-word{display:grid;line-height:1.1}
+.brand-word b{font:700 15px var(--head);letter-spacing:-.01em}
+.brand-word small{font:500 10.5px var(--head);color:rgba(220,230,255,.7);letter-spacing:.02em}
+.aavtor-tile{border-radius:10px}
+.topnav nav{gap:2px}
+.topnav nav a{padding:8px 12px;border-radius:9px;font:500 13px var(--head);color:rgba(235,241,255,.82)}
+.topnav nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+.topnav nav a.on{background:rgba(255,255,255,.96);color:var(--brand-ink);font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.topnav nav a.on svg{color:var(--brand)}
+.crumb{font:500 13px var(--head);color:rgba(235,241,255,.9)}
+.icon-btn{width:36px;height:36px;border-radius:9px;color:rgba(235,241,255,.9)}
+.avatar{width:34px;height:34px;background:linear-gradient(160deg,#2f7fd0,var(--brand-ink));border:2px solid rgba(255,255,255,.75);font:700 13px var(--head)}
+
+/* ── rail ─────────────────────────────────────────────────────────────── */
+.rail{top:78px;width:50px;border-radius:16px;background:rgba(9,16,44,.42);backdrop-filter:blur(20px) saturate(1.4);border:1px solid rgba(255,255,255,.1);gap:6px}
+.rail button,.rail a{width:36px;height:36px;border-radius:10px;color:rgba(235,241,255,.82)}
+.rail button.on,.rail a.on{background:rgba(255,255,255,.96);color:var(--brand);box-shadow:0 4px 14px rgba(0,0,0,.2)}
+
+main{padding-top:0}
+
+/* ── surfaces ─────────────────────────────────────────────────────────── */
+.panel{background:var(--glass);backdrop-filter:blur(28px) saturate(1.5);-webkit-backdrop-filter:blur(28px) saturate(1.5);
+  border:1px solid rgba(255,255,255,.85);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px}
+.panel.dark{background:rgba(8,16,48,.5);border-color:rgba(255,255,255,.12);box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 22px 50px -18px rgba(0,0,0,.6)}
+.panel-head{margin-bottom:12px}
+.panel-head h3{font:700 15px var(--head);color:var(--ink);letter-spacing:-.01em}
+.panel.dark .panel-head h3{color:#fff}
+.page-title{font:700 24px var(--head);letter-spacing:-.02em}
+
+/* ── controls ─────────────────────────────────────────────────────────── */
+.btn{border-radius:var(--radius-sm);font:600 13px var(--head);padding:10px 16px}
+.btn.primary{background:linear-gradient(180deg,#2f7fd0,var(--brand-2));box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 8px 20px -6px rgba(31,99,168,.6)}
+.btn.primary:hover{transform:none;filter:brightness(1.07)}
+.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink);box-shadow:0 2px 8px rgba(10,22,70,.08)}
+.btn.ghost:hover{background:#f5f7fc}
+
+.select{border-radius:var(--radius-sm);background:#fff;border:1px solid rgba(255,255,255,.9);box-shadow:0 4px 14px rgba(10,22,70,.16)}
+.select select{font:600 12.5px var(--head);padding:8px 32px 8px 12px}
+.select svg{right:11px;color:var(--muted)}
+.select:focus-within{box-shadow:var(--ring);border-color:var(--brand)}
+.panel .select{border:1px solid var(--line);box-shadow:none}
+.panel .select select{padding:6px 28px 6px 10px;font-size:12px}
+
+/* segmented tabs on the dark backdrop */
+.tabs{gap:2px;padding:4px;background:rgba(9,16,44,.4);border:1px solid rgba(255,255,255,.12);border-radius:12px;backdrop-filter:blur(16px);width:fit-content}
+.tabs button{background:transparent;border:0;padding:8px 14px;border-radius:9px;font:500 13px var(--head);color:rgba(235,241,255,.82);backdrop-filter:none}
+.tabs button:hover{background:rgba(255,255,255,.08);color:#fff}
+.tabs button.on{background:#fff;color:var(--brand-ink);font-weight:600;border:0;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+
+:focus-visible{outline:none;box-shadow:var(--ring)}
+/* inputs inside a styled field show the ring on the field itself, not a box inside it */
+.chatbar input:focus-visible,.lf-box input:focus-visible,.palette-input input:focus-visible,.select select:focus-visible{box-shadow:none}
+.chatbar:focus-within{box-shadow:0 0 0 5px rgba(140,170,255,.32),0 0 54px rgba(90,130,255,.55),0 18px 44px rgba(5,10,40,.45)}
+
+/* ── KPI cards ────────────────────────────────────────────────────────── */
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 10px rgba(10,22,70,.05);padding:16px 18px}
+.kpi:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(10,22,70,.25)}
+.kpi-ico{border-radius:12px;width:46px;height:46px}
+.kpi strong{font:700 22px var(--head);letter-spacing:-.02em}
+.kpi small{font:500 12px var(--head);color:var(--muted)}
+.kpi .growth{font-size:15px;font-weight:700}
+.ov .panel-head h3{font-size:20px}
+.insight h3{font:700 18px var(--head);color:var(--brand)}
+.insight p{font:400 15px/1.55 var(--head);color:#26335c}
+.bulb{width:60px;height:60px;border-radius:16px}
+
+/* ── tables ───────────────────────────────────────────────────────────── */
+.table{font-size:13px}
+.table th{background:#f3f6fb;color:var(--muted);font:600 12px var(--head);text-transform:none}
+.table td{border-bottom:1px solid #eef1f7;color:#26335c}
+.table tbody tr:hover{background:#f7f9fd}
+
+/* ── misc ─────────────────────────────────────────────────────────────── */
+.chatbar{box-shadow:0 0 0 5px rgba(140,170,255,.18),0 0 44px rgba(90,130,255,.45),0 18px 44px rgba(5,10,40,.45)}
+.chatbar button{background:linear-gradient(180deg,#2f7fd0,var(--brand-ink))}
+.chips button{border-radius:12px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);font-weight:500}
+.chips button:hover{background:rgba(255,255,255,.2)}
+.toast{border-radius:12px;background:rgba(11,21,48,.96);backdrop-filter:blur(12px)}
+.menu,.palette{border-radius:14px;border:1px solid var(--line)}
+.live-pill{font:600 12px var(--head)}
+.skeleton{border-radius:var(--radius);background:linear-gradient(100deg,rgba(255,255,255,.08) 30%,rgba(255,255,255,.18) 50%,rgba(255,255,255,.08) 70%);background-size:300% 100%;border-color:rgba(255,255,255,.12)}
+.boundary{gap:10px}
+
+/* ── brand loader ─────────────────────────────────────────────────────── */
+.brand-loader{display:grid;justify-items:center;gap:12px}
+.brand-loader.overlay{position:absolute;inset:0;place-content:center;pointer-events:none;z-index:3}
+.bl-ring{position:relative;display:grid;place-items:center;border-radius:50%}
+.bl-ring:before{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid rgba(36,111,184,.18);border-top-color:#5fa3ff;animation:spin 1s linear infinite}
+.bl-mark{animation:bl-breathe 1.6s ease-in-out infinite}
+@keyframes bl-breathe{50%{transform:scale(.88);opacity:.75}}
+.bl-label{font:500 13px var(--head);color:rgba(235,241,255,.85)}
+.route-loading{min-height:60vh;display:grid;place-items:center}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ── status pages (404 / errors) ──────────────────────────────────────── */
+.status-page{min-height:100vh;display:grid;place-items:center;padding:24px}
+.status-card{width:min(420px,100%);display:grid;justify-items:center;gap:10px;text-align:center;padding:32px;
+  background:rgba(255,255,255,.8);backdrop-filter:blur(28px) saturate(1.5);border:1px solid rgba(255,255,255,.85);border-radius:22px;box-shadow:var(--shadow);color:var(--ink)}
+.status-code{font:700 13px var(--head);color:var(--brand);letter-spacing:.12em}
+.status-card h1{margin:0;font:700 24px var(--head);letter-spacing:-.02em}
+.status-card p{margin:0 0 6px;color:var(--muted);font:400 14px/1.5 var(--head)}
+.status-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+@media(max-width:1100px){.brand-word{display:none}.brand-link{border-right:0;padding-right:0}}
+.rank li b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+
+/* the Ask hero fills exactly one screen (no stray scrollbar) */
+.ask{min-height:calc(100vh - 128px)}
+
+/* hero headline stays legible over the brighter frosted backdrop */
+.hero-copy h1{text-shadow:0 2px 24px rgba(8,16,50,.45)}
+.hero-copy h1 span{filter:drop-shadow(0 2px 10px rgba(8,16,50,.55))}
+.hero-copy h1 span em{background:linear-gradient(90deg,#5fe3ff,#8fb4ff);-webkit-background-clip:text;background-clip:text}
+.hero-copy h1 span em+em{background:linear-gradient(90deg,#b49bff,#e29bff);-webkit-background-clip:text;background-clip:text}
+.hero-copy p,.ask-live{text-shadow:0 1px 10px rgba(8,16,50,.6)}

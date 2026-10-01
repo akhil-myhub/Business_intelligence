@@ -25,7 +25,7 @@ describe('server logger', () => {
     const spy = vi.spyOn(console, 'log').mockImplementation(() => {});
     createLogger({ requestId: 'r-1' }).info('hello', { n: 1, password: 'nope' });
     const line = JSON.parse(spy.mock.calls[0][0]);
-    expect(line).toMatchObject({ level: 'info', msg: 'hello', service: 'lumen-bi', requestId: 'r-1', ctx: { n: 1, password: '[redacted]' } });
+    expect(line).toMatchObject({ level: 'info', msg: 'hello', service: 'businessai', requestId: 'r-1', ctx: { n: 1, password: '[redacted]' } });
     expect(typeof line.ts).toBe('string');
   });
 

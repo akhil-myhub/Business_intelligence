@@ -1,5 +1,5 @@
 {
-  "name": "lumen-bi",
+  "name": "businessai",
   "private": true,
   "version": "1.0.0",
   "scripts": {
@@ -16,6 +16,7 @@
     "@react-three/fiber": "9.8.1",
     "lucide-react": "1.48.0",
     "next": "16.3.7",
+    "pptxgenjs": "4.0.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "three": "0.182.0"
@@ -26,6 +27,10 @@
   "devDependencies": {
     "eslint": "9.39.5",
     "eslint-config-next": "16.3.7",
+    "globals": "14.0.0",
     "vitest": "5.0.3"
+  },
+  "overrides": {
+    "image-size": "2.0.4"
   }
 }

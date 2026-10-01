@@ -13,7 +13,15 @@ export class HttpError extends Error {
   }
 }
 
-export const sleep = (ms, signal) => new Promise((resolve, reject) => {
+// True while the page is being closed/reloaded: the browser kills in-flight requests, which is not an error worth logging.
+let unloading = false;
+if (typeof window !== 'undefined') {
+  window.addEventListener('pagehide', () => { unloading = true; });
+  window.addEventListener('pageshow', () => { unloading = false; }); // restored from the back/forward cache
+}
+export const isUnloading = () => unloading;
+
+const sleep = (ms, signal) => new Promise((resolve, reject) => {
   if (signal?.aborted) return reject(signal.reason);
   const onAbort = () => { clearTimeout(t); reject(signal.reason); };
   const t = setTimeout(() => { signal?.removeEventListener('abort', onAbort); resolve(); }, ms);

@@ -3,12 +3,14 @@ import { parseFrame, runQuery } from '@/services/queryClient';
 
 afterEach(() => vi.restoreAllMocks());
 
-const sse = chunks => new Response(new ReadableStream({
+const sse = (chunks, status = 200) => new Response(new ReadableStream({
   start(c) {
     chunks.forEach(x => c.enqueue(new TextEncoder().encode(x)));
     c.close();
   }
-}), { status: 200, headers: { 'x-request-id': 'req-123' } });
+}), { status, headers: { 'x-request-id': 'req-123' } });
+
+const quiet = () => { vi.spyOn(console, 'log').mockImplementation(() => {}); vi.spyOn(console, 'error').mockImplementation(() => {}); };
 
 describe('parseFrame', () => {
   it('parses events, ignores heartbeats and bad JSON', () => {
@@ -19,40 +21,44 @@ describe('parseFrame', () => {
 });
 
 describe('runQuery', () => {
-  it('streams steps and returns the live result', async () => {
-    vi.spyOn(console, 'log').mockImplementation(() => {});
+  it('streams steps and returns where the answer lives', async () => {
+    quiet();
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(sse([
       'event: step\ndata: {"index":0}\n\n: ping\n\n',
       'event: step\ndata: {"index":1}\n\nevent: res',
-      'ult\ndata: {"region":"South India"}\n\n'
+      'ult\ndata: {"intent":"dashboard","path":"/dashboard"}\n\n'
     ]));
     const steps = [];
     const out = await runQuery('q', { onStep: i => steps.push(i) });
     expect(steps).toEqual([0, 1]);
-    expect(out).toMatchObject({ source: 'stream', requestId: 'req-123', data: { region: 'South India' } });
+    expect(out).toMatchObject({ intent: 'dashboard', path: '/dashboard', requestId: 'req-123' });
   });
 
-  it('degrades to local insights (and says so) when the service is down', async () => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+  it('rejects (no invented data) when the service is down', async () => {
+    quiet();
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new TypeError('network'));
-    const out = await runQuery('q', { onStep() {} });
-    expect(out.source).toBe('fallback');
-    expect(out.data.kpis.revenue).toBeGreaterThan(0);
+    await expect(runQuery('q', { onStep() {} })).rejects.toThrow('network');
   });
 
-  it('flags rate limiting distinctly', async () => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+  it('surfaces rate limiting with its status code', async () => {
+    quiet();
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 429 }));
-    expect((await runQuery('q', { onStep() {} })).reason).toBe('rate_limited');
+    await expect(runQuery('q', { onStep() {} })).rejects.toMatchObject({ status: 429 });
   });
 
-  it('degrades when the stream errors mid-way instead of hanging', async () => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+  it('rejects when the stream reports an error instead of hanging', async () => {
+    quiet();
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(sse(['event: error\ndata: {"message":"boom"}\n\n']));
-    expect((await runQuery('q', { onStep() {} })).source).toBe('fallback');
+    await expect(runQuery('q', { onStep() {} })).rejects.toThrow('boom');
   });
 
-  it('rejects (does not fall back) when the caller cancels', async () => {
+  it('rejects when the stream ends without a result', async () => {
+    quiet();
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(sse(['event: step\ndata: {"index":0}\n\n']));
+    await expect(runQuery('q', { onStep() {} })).rejects.toThrow('without a result');
+  });
+
+  it('rejects promptly when the caller cancels', async () => {
     vi.spyOn(globalThis, 'fetch').mockImplementation((_url, { signal }) => new Promise((_resolve, reject) => {
       signal.addEventListener('abort', () => reject(signal.reason));
     }));

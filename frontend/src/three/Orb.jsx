@@ -4,26 +4,10 @@ import { Float } from '@react-three/drei';
 import * as THREE from 'three';
 import SceneShell from './SceneShell';
 import StudioEnv from './StudioEnv';
+import AavtorMark3D from './AavtorMark3D';
 import { glowTexture } from './geo';
 
-// lucide "brain" paths, drawn into a texture so the brain glows inside the orb while processing
-const BRAIN = ['M12 18V5', 'M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4', 'M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5',
-  'M17.997 5.125a4 4 0 0 1 2.526 5.77', 'M18 18a4 4 0 0 0 2-7.464', 'M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517',
-  'M6 18a4 4 0 0 1-2-7.464', 'M6.003 5.125a4 4 0 0 0-2.526 5.77'];
-
-function brainTexture() {
-  const c = document.createElement('canvas'); c.width = c.height = 512;
-  const g = c.getContext('2d');
-  g.scale(512 / 24, 512 / 24); g.translate(0, 0.4);
-  g.lineCap = g.lineJoin = 'round';
-  for (const [w, a, blur] of [[1.5, 0.35, 1.2], [0.55, 1, 0]]) {
-    g.lineWidth = w; g.strokeStyle = `rgba(90,225,255,${a})`; g.shadowColor = '#4ad8ff'; g.shadowBlur = blur * 21;
-    BRAIN.forEach(d => g.stroke(new Path2D(d)));
-  }
-  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
-}
-
-// mulberry32 PRNG
+// mulberry32 PRNG: deterministic particles keep render pure and the cloud stable across re-renders
 const seeded = seed => () => {
   seed = Math.trunc(seed + 0x6d2b79f5);
   let t = seed;
@@ -54,12 +38,11 @@ function Pedestal() {
 
 function Orb({ active, variant }) {
   const stage = variant === 'stage', light = variant === 'login';
-  const appear = useRef(0), root = useRef();
-  const group = useRef(), lat = useRef(), rings = useRef([]), pts = useRef(), halo = useRef(), brain = useRef(), core = useRef();
+  const appear = useRef(0), root = useRef(), markRef = useRef(), markScale = useRef(stage ? 1.1 : 1);
+  const group = useRef(), lat = useRef(), rings = useRef([]), pts = useRef(), halo = useRef(), core = useRef();
   const speed = useRef(1);
   const ico = useMemo(() => new THREE.IcosahedronGeometry(1, 2), []);
   const wire = useMemo(() => new THREE.WireframeGeometry(ico), [ico]);
-  const brainTex = useMemo(() => brainTexture(), []);
   const dust = useMemo(() => {
     const rand = seeded(7); // deterministic: render stays pure and the particle cloud is stable across re-renders
     const n = 320, a = new Float32Array(n * 3);
@@ -74,6 +57,9 @@ function Orb({ active, variant }) {
     speed.current += ((active ? 3 : 1) - speed.current) * Math.min(1, dt * 3);
     appear.current += (((stage && !active) ? 0 : 1) - appear.current) * Math.min(1, dt * 3);
     root.current.scale.setScalar(Math.max(0.001, appear.current) * (stage ? 1.4 : 1));
+    // on the home stage the mark is always present: it hovers over the pedestal at idle and grows into the orb's core
+    markScale.current += ((stage ? (active ? 1.4 : 1.1) : 1) - markScale.current) * Math.min(1, dt * 3);
+    markRef.current.scale.setScalar(markScale.current);
     const k = speed.current, t = s.clock.elapsedTime, ease = Math.min(1, dt * 3);
     group.current.rotation.y += dt * 0.22 * k;
     lat.current.rotation.x += dt * 0.08 * k;
@@ -82,9 +68,7 @@ function Orb({ active, variant }) {
     const pulse = 1 + Math.sin(t * (active ? 5 : 1.4)) * (active ? 0.08 : 0.03);
     halo.current.scale.setScalar((active ? 5.6 : 4.2) * pulse);
     halo.current.material.opacity += ((light ? 0 : active ? 0.8 : 0.4) - halo.current.material.opacity) * ease;
-    brain.current.material.opacity += ((active ? 1 : 0) - brain.current.material.opacity) * Math.min(1, dt * 4);
-    brain.current.scale.setScalar(1.05 * (1 + Math.sin(t * 5) * (active ? 0.05 : 0)));
-    core.current.material.opacity += ((active ? 0.55 : 0.25) - core.current.material.opacity) * ease;
+    core.current.material.opacity += ((active ? 0.3 : 0.12) - core.current.material.opacity) * ease;
   });
 
   const line = light ? '#2f5bff' : active ? '#79e6ff' : '#4aa3ff', node = light ? '#ffb020' : active ? '#ffffff' : '#ffd27a';
@@ -92,21 +76,26 @@ function Orb({ active, variant }) {
   return (
     <group>
       {stage && <Pedestal />}
+      {/* the Aavtor mark floats at the heart of the orb, facing the viewer while the lattice spins around it */}
+      <group ref={markRef} position={[0, stage ? -0.55 : 0, 0]}>
+        <Float speed={1.6} floatIntensity={0.45} rotationIntensity={0.08}>
+          <AavtorMark3D height={1.6} active={active} />
+        </Float>
+      </group>
       <group ref={root} position={[0, stage ? -0.55 : 0, 0]}>
       <Float speed={1.6} floatIntensity={0.45} rotationIntensity={0.08}>
         <sprite ref={halo}><spriteMaterial map={glowTexture()} color={active ? '#6d7bff' : '#7a6bff'} transparent opacity={0.4} depthWrite={false} blending={THREE.AdditiveBlending} /></sprite>
         <group ref={group}>
           <mesh scale={1.4} renderOrder={1}>
             <sphereGeometry args={[1, 64, 64]} />
-            <meshPhysicalMaterial color={light ? "#3a5ccf" : "#7a9bff"} roughness={0.05} metalness={0.1} iridescence={1}
-              clearcoat={1} envMapIntensity={2.2} transparent opacity={light ? 0.5 : 0.22} depthWrite={false} />
+            <meshPhysicalMaterial color={light ? "#b9c9ff" : "#7a9bff"} roughness={0.05} metalness={0.1} iridescence={1}
+              clearcoat={1} envMapIntensity={2.2} transparent opacity={light ? 0.3 : 0.18} depthWrite={false} />
           </mesh>
           <mesh ref={core} scale={1.05}><sphereGeometry args={[1, 32, 32]} /><meshBasicMaterial color="#2a3fd0" transparent opacity={0.25} depthWrite={false} /></mesh>
           <group ref={lat} scale={1.18}>
-            <lineSegments geometry={wire} renderOrder={3}><lineBasicMaterial color={line} transparent opacity={1} depthWrite={false} /></lineSegments>
+            <lineSegments geometry={wire} renderOrder={3}><lineBasicMaterial color={line} transparent opacity={light ? 0.35 : 0.45} depthWrite={false} /></lineSegments>
             <points geometry={ico} renderOrder={4}><pointsMaterial color={node} size={light ? 0.1 : active ? 0.085 : 0.07} sizeAttenuation transparent opacity={1} depthWrite={false} blending={blend} /></points>
           </group>
-          <sprite ref={brain}><spriteMaterial map={brainTex} transparent opacity={0} depthTest={false} /></sprite>
           {RINGS.map(([r, rot, c], i) => (
             <mesh key={c} ref={el => { rings.current[i] = el; }} rotation={rot} scale={[1, 0.62, 1]}>
               <torusGeometry args={[r, 0.008, 12, 200]} /><meshBasicMaterial color={c} transparent opacity={active ? 0.95 : 0.7} />

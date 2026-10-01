@@ -12,7 +12,7 @@ const nodeEnv = oneOf(process.env.NODE_ENV, ['development', 'production', 'test'
 const isProd = nodeEnv === 'production';
 
 export const env = Object.freeze({
-  service: 'lumen-bi',
+  service: 'businessai',
   nodeEnv,
   isProd,
   version: process.env.APP_VERSION || 'dev',
@@ -25,5 +25,11 @@ export const env = Object.freeze({
   logRatePerMin: num(process.env.LOG_RATE_PER_MIN, 120, 1, 10_000),
   // Streaming behaviour
   stepDelayMs: num(process.env.QUERY_STEP_DELAY_MS, isProd ? 700 : 900, 0, 10_000),
-  heartbeatMs: num(process.env.SSE_HEARTBEAT_MS, 10_000, 1000, 60_000)
+  heartbeatMs: num(process.env.SSE_HEARTBEAT_MS, 10_000, 1000, 60_000),
+  // Live sales simulator (replaced by the real event stream once the backend exists)
+  liveTickMs: num(process.env.LIVE_TICK_MS, 2000, 200, 60_000),
+  liveSpeedup: num(process.env.LIVE_SPEEDUP, 40, 1, 5000), // 1 = real time; >1 compresses business time so the demo visibly moves
+  // Authentication
+  sessionTtlSec: num(process.env.SESSION_TTL_SEC, 8 * 3600, 300, 30 * 86400),
+  loginRatePerMin: num(process.env.LOGIN_RATE_PER_MIN, 10, 1, 1000)
 });

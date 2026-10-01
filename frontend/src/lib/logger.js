@@ -29,7 +29,7 @@ export function redact(value, depth = 0) {
   return String(value);
 }
 
-export function serializeError(err) {
+function serializeError(err) {
   if (!(err instanceof Error)) return { message: String(err) };
   return {
     name: err.name,
@@ -85,7 +85,7 @@ function emit(level, bindings, message, context) {
     ts: new Date().toISOString(),
     level,
     msg: message,
-    service: 'lumen-bi',
+    service: 'businessai',
     ...(isServer ? { env: process.env.NODE_ENV, version: process.env.APP_VERSION || 'dev' } : { source: 'browser', url: location.pathname }),
     ...redact(bindings),
     ...(context ? { ctx: redact(context) } : {})

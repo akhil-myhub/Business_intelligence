@@ -1,7 +1,7 @@
 import { clientConfig } from '@/config/client';
-import { HttpError, fetchWithTimeout, sleep, withTimeout } from '@/lib/http';
+import { HttpError, fetchWithTimeout, isUnloading, withTimeout } from '@/lib/http';
 import { createLogger } from '@/lib/logger';
-import { getInsights, pipeline } from '@/data/mock';
+import { hardNavigate } from '@/lib/navigation';
 
 const log = createLogger({ module: 'queryClient' });
 
@@ -44,10 +44,10 @@ async function readStream(res, { onStep, idleMs }) {
 }
 
 /**
- * Ask a question. Streams pipeline progress via onStep and resolves with { data, source }.
- * source = 'stream'   live service answered
- *          'fallback' service unavailable → local dataset, flagged so the UI can tell the user
- * Rejects only when the caller aborts via `signal`.
+ * Ask a question. Streams pipeline progress via onStep and resolves with
+ * { intent, path, summary, preview, requestId } — `path` is the screen that answers it.
+ * Rejects on cancellation (signal) or failure; the caller shows the error and offers a retry.
+ * (There is deliberately no offline fallback: inventing numbers when the service is down would be worse than an error.)
  */
 export async function runQuery(query, { onStep, signal } = {}) {
   const { totalTimeoutMs, idleTimeoutMs } = clientConfig.query;
@@ -59,20 +59,16 @@ export async function runQuery(query, { onStep, signal } = {}) {
   let requestId;
 
   try {
-    const res = await fetchWithTimeout('/api/query?q=' + encodeURIComponent(query), { timeoutMs: 6_000, signal: ctrl.signal });
+    const res = await fetchWithTimeout('/api/query?q=' + encodeURIComponent(query), { timeoutMs: 6_000, signal: ctrl.signal, credentials: 'same-origin' });
     requestId = res.headers.get('x-request-id') ?? undefined;
+    if (res.status === 401) hardNavigate('/login');
     if (!res.ok || !res.body) throw new HttpError(res.status);
-    const data = await readStream(res, { onStep, idleMs: idleTimeoutMs });
-    log.info('query_ok', { requestId, durationMs: Math.round(performance.now() - started) });
-    return { data, source: 'stream', requestId };
+    const result = await readStream(res, { onStep, idleMs: idleTimeoutMs });
+    log.info('query_ok', { requestId, intent: result.intent, durationMs: Math.round(performance.now() - started) });
+    return { ...result, requestId };
   } catch (err) {
-    if (signal?.aborted) throw err; // the user cancelled — not a failure
-    log.warn('query_degraded', { requestId, status: err.status, err, durationMs: Math.round(performance.now() - started) });
-    for (let i = 0; i < pipeline.length; i++) {
-      onStep?.(i);
-      await sleep(450, signal);
-    }
-    return { data: getInsights(query), source: 'fallback', requestId, reason: err.status === 429 ? 'rate_limited' : 'unavailable' };
+    if (!signal?.aborted && !isUnloading()) log.warn('query_failed', { requestId, status: err.status, err, durationMs: Math.round(performance.now() - started) });
+    throw err;
   } finally {
     clearTimeout(total);
     signal?.removeEventListener('abort', relay);

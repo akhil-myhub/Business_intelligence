@@ -5,6 +5,8 @@ import { Canvas } from '@react-three/fiber';
 import { catchError } from 'next/error';
 import { logger } from '@/lib/logger';
 import { isWebGLSupported } from '@/lib/webgl';
+import { usePrefs } from '@/providers/PrefsProvider';
+import { BrandLoader } from '@/components/BrandLoader';
 
 function Message({ title, onRetry, error, name }) {
   useEffect(() => { if (error) logger.error('scene_crashed', { scene: name, err: error }); }, [error, name]);
@@ -23,13 +25,16 @@ const SceneBoundary = catchError(({ name }, { error, retry }) => (
 
 /**
  * Shared shell for every 3D scene. Gives each scene, uniformly:
+ *  - the user's "3D effects" preference (off → `fallback`, a useful 2D alternative, instead of WebGL)
  *  - WebGL feature detection with a readable fallback
  *  - context-loss handling (GPU reset / backgrounding) with automatic remount on restore
  *  - an error boundary
  *  - loading / error overlays for the data the scene depends on (`status`)
  */
-export default function SceneShell({ name, label, className = '', status, children, ...canvasProps }) {
+export default function SceneShell({ name, label, className = '', status, fallback, tone = 'light', children, ...canvasProps }) {
   const supported = useMemo(() => isWebGLSupported(), []);
+  const prefs = usePrefs()?.prefs;
+  const enabled = prefs?.effects3d ?? true;
   const [epoch, setEpoch] = useState(0);
 
   const onCreated = useCallback(({ gl }) => {
@@ -43,19 +48,20 @@ export default function SceneShell({ name, label, className = '', status, childr
     el.addEventListener('webglcontextrestored', () => { logger.info('webgl_context_restored', { scene: name }); setEpoch(n => n + 1); });
   }, [name]);
 
-  return (
-    <div className={'canvas-wrap ' + className} role="img" aria-label={label}>
-      {supported ? (
-        <SceneBoundary name={name}>
-          <Canvas key={epoch} dpr={[1, 1.75]} gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }} onCreated={onCreated} {...canvasProps}>
-            {children}
-          </Canvas>
-        </SceneBoundary>
-      ) : (
-        <Message title="3D view needs WebGL, which is unavailable on this device." />
-      )}
-      {supported && status?.status === 'loading' && <div className="scene-loading"><i /></div>}
-      {supported && status?.status === 'error' && <Message title="Map data could not be loaded." onRetry={status.retry} />}
-    </div>
+  const wrap = (content, cls = '') => <div className={`canvas-wrap ${className} ${cls}`} role={cls ? undefined : 'img'} aria-label={cls ? undefined : label}>{content}</div>;
+
+  if (!enabled) return wrap(fallback ?? <Message title="3D effects are turned off in Settings." />, 'plain');
+  if (!supported) return wrap(fallback ?? <Message title="3D view needs WebGL, which is unavailable on this device." />, 'plain');
+
+  return wrap(
+    <>
+      <SceneBoundary name={name}>
+        <Canvas key={epoch} dpr={[1, 1.75]} gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }} onCreated={onCreated} {...canvasProps}>
+          {children}
+        </Canvas>
+      </SceneBoundary>
+      {status?.status === 'loading' && <BrandLoader overlay label="Loading map data" tone={tone} />}
+      {status?.status === 'error' && <Message title="Map data could not be loaded." onRetry={status.retry} />}
+    </>
   );
 }
