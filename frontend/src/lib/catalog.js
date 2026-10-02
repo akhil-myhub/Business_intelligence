@@ -12,7 +12,7 @@ export const STATE_OPTIONS = STATE_NAMES.map(name => ({ name, slug: slugify(name
 export const PRODUCT_OPTIONS = PRODUCT_NAMES.map(name => ({ name, id: name.slice(-1).toLowerCase() }));
 
 export const NAV = [
-  { id: 'ask', label: 'Ask', href: '/', match: p => p === '/' || p.startsWith('/overview') || p.startsWith('/dashboard') },
+  { id: 'ask', label: 'Ask', href: '/ask', match: p => p.startsWith('/ask') || p.startsWith('/overview') || p.startsWith('/dashboard') },
   { id: 'products', label: 'Products', href: '/products', match: p => p.startsWith('/products') },
   { id: 'market', label: 'Market', href: '/market', match: p => p.startsWith('/market') },
   { id: 'stores', label: 'Stores', href: '/stores/tamil-nadu', match: p => p.startsWith('/stores') },
@@ -21,7 +21,7 @@ export const NAV = [
 ];
 
 export const PAGES = [
-  { label: 'Ask AI', path: '/', hint: 'Ask a question about your data' },
+  { label: 'Ask AI', path: '/ask', hint: 'Ask a question about your data' },
   { label: 'Overview', path: '/overview', hint: 'KPIs and key insight' },
   { label: 'Dashboard', path: '/dashboard', hint: 'Map, trend and states' },
   { label: 'Products', path: '/products', hint: 'Product ranking' },

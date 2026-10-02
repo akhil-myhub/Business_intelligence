@@ -45,7 +45,7 @@ function Rail({ activeId }) {
     <aside className="rail" aria-label="Primary">
       {RAIL.map(([id, Icon]) => {
         const item = NAV.find(n => n.id === id);
-        const I = id === 'ask' && activeId === 'ask' && pathname !== '/' ? BrainCircuit : Icon;
+        const I = id === 'ask' && activeId === 'ask' && pathname !== '/ask' ? BrainCircuit : Icon;
         return <Link key={id} href={item.href} className={activeId === id ? 'on' : ''} title={item.label} aria-label={item.label} aria-current={activeId === id ? 'page' : undefined}><I size={22} strokeWidth={1.8} /></Link>;
       })}
       <span className="grow" />
@@ -57,7 +57,7 @@ function Rail({ activeId }) {
 // Brand: Aavtor mark + product wordmark, links home.
 function Brand() {
   return (
-    <Link href="/" className="brand-link" aria-label="BusinessAI by Aavtor — home">
+    <Link href="/ask" className="brand-link" aria-label="BusinessAI by Aavtor — home">
       <AavtorLogo tile size={36} />
       <span className="brand-word"><b>BusinessAI</b><small>by Aavtor</small></span>
     </Link>
@@ -130,7 +130,7 @@ function CommandPalette({ open, onClose }) {
     const q = text.trim().toLowerCase();
     const match = s => !q || s.toLowerCase().includes(q);
     const out = [];
-    if (q.length >= 3) out.push({ kind: 'Ask AI', label: `Ask: “${text.trim()}”`, hint: 'Answer this question with your data', icon: Sparkles, path: `/?ask=${encodeURIComponent(text.trim())}` });
+    if (q.length >= 3) out.push({ kind: 'Ask AI', label: `Ask: “${text.trim()}”`, hint: 'Answer this question with your data', icon: Sparkles, path: `/ask?ask=${encodeURIComponent(text.trim())}` });
     PAGES.filter(p => match(p.label) || match(p.hint)).forEach(p => out.push({ kind: 'Pages', label: p.label, hint: p.hint, icon: CornerDownLeft, path: p.path }));
     STATE_OPTIONS.filter(s => match(s.name)).slice(0, 6).forEach(s => out.push({ kind: 'States', label: s.name, hint: 'State drill-down', icon: MapPin, path: `/stores/${s.slug}` }));
     PRODUCT_OPTIONS.filter(p => match(p.name)).forEach(p => out.push({ kind: 'Products', label: p.name, hint: 'Product performance', icon: Package, path: `/products/${p.id}` }));

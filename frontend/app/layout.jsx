@@ -1,9 +1,10 @@
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans, Roboto } from 'next/font/google';
 import './globals.css';
 
 // Self-hosted at build time: no render-blocking @import to Google, no third-party request at runtime.
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-jakarta', display: 'swap' });
+const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-roboto', display: 'swap' });
 
 export const metadata = {
   title: 'BusinessAI | Business Intelligence',
@@ -14,7 +15,7 @@ export const viewport = { width: 'device-width', initialScale: 1, themeColor: '#
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jakarta.variable} ${roboto.variable}`}>
       <body>{children}</body>
     </html>
   );

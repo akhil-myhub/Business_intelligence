@@ -27,8 +27,9 @@ Production needs explicit secrets (sign-in is fail-closed without them): see `.e
 
 | URL | Screen |
 | --- | --- |
-| `/login` | Sign in (validation, rate limited, `?next=` return, remember me) |
-| `/` | Ask — type a question; it is interpreted and routed to the screen that answers it (`/?ask=…` auto-asks) |
+| `/` | Public landing page built from the "BI landing page" Figma frame. Hero, benefits and the demo form are live HTML; the nine product sections are interactive React (Ask demo, 5-level sales drill-down on a real India map, batch recall tracer, insights, forecasting, data foundation, implementation). Only the hero render and the small card illustrations are artwork (`public/landing`). Demo requests → `POST /api/demo-request` |
+| `/login` | Sign in (validation, rate limited, `?next=` return, remember me) → lands on `/ask` |
+| `/ask` | Ask — type a question; it is interpreted and routed to the screen that answers it (`/ask?ask=…` auto-asks) |
 | `/overview` | KPIs + generated key insight; "why" questions produce a diagnosis with drivers |
 | `/dashboard` | 3D India map coloured by revenue, trend, top states, **live sales** |
 | `/stores/[state]` | Drill-down for any of 30 states: 3D block, cities, store types, channel mix |

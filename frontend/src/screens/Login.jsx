@@ -24,7 +24,7 @@ const MicrosoftIcon = () => (
   <svg viewBox="0 0 22 22" width="16" height="16" aria-hidden><rect width="10" height="10" fill="#f25022" /><rect x="12" width="10" height="10" fill="#7fba00" /><rect y="12" width="10" height="10" fill="#00a4ef" /><rect x="12" y="12" width="10" height="10" fill="#ffb900" /></svg>
 );
 
-export default function LoginScreen({ next = '/', hint }) {
+export default function LoginScreen({ next = '/ask', hint }) {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

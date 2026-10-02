@@ -12,7 +12,7 @@ export default function RouteError({ error, retry }) {
   return (
     <StatusPage role="alert" title="Something went wrong" message={`The error has been logged${error.digest ? ` (reference ${error.digest})` : ''}. You can try again.`}>
       <button className="btn primary" onClick={() => retry()}>Try again</button>
-      <Link href="/" className="btn ghost">Go to workspace</Link>
+      <Link href="/ask" className="btn ghost">Go to workspace</Link>
     </StatusPage>
   );
 }

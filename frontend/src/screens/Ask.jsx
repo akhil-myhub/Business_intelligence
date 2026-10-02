@@ -57,7 +57,7 @@ export default function AskScreen() {
     }
   }, [router]);
 
-  // /?ask=… (from the command palette) asks immediately, once.
+  // /ask?ask=… (from the command palette) asks immediately, once.
   const preset = params.get('ask');
   useEffect(() => {
     if (preset && !autoRan.current) {
