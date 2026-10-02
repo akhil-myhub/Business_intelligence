@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { Activity, ArrowRight, Barcode, ChartColumnIncreasing, Eye, EyeOff, KeyRound, LoaderCircle, LockKeyhole, Mail, MapPinned, ShieldCheck, Sparkles } from 'lucide-react';
@@ -22,7 +22,11 @@ const FEATURES = [
   [Barcode, 'Batch-level traceability', 'Follow any batch from plant to shelf in seconds.'],
   [ChartColumnIncreasing, 'Demand-led planning', 'Forecast demand and plan capacity with confidence.']
 ];
-const KPIS = [['₹892 Cr', 'Total revenue', '14.2%'], ['8.4 M', 'Units sold', '11.6%'], ['12.8%', 'Market share', '2.4%'], ['3.6%', 'Conversion', '1.9%']];
+const SCENES = [
+  { q: 'Show sales performance in South India last quarter', tiles: [['₹892 Cr', 'Total revenue', '▲ 14.2%'], ['8.4 M', 'Units sold', '▲ 11.6%'], ['12.8%', 'Market share', '▲ 2.4%'], ['3.6%', 'Conversion', '▲ 1.9%']] },
+  { q: 'Which cities had the strongest sales growth?', tiles: [['+42%', 'Chennai', '▲ #1'], ['+34%', 'Pune', '▲ #2'], ['+28%', 'Bengaluru', '▲ #3'], ['+18%', 'Hyderabad', '▲ #4']] },
+  { q: 'Where has Batch B-2291 been dispatched?', tiles: [['1', 'Plant', '● Traced'], ['2', 'Depots', '● Traced'], ['4', 'Distributors', '● Traced'], ['38', 'Outlets', '● Traced']] }
+];
 const TRUST = [[ShieldCheck, 'Encrypted sessions'], [LockKeyhole, 'Brute-force protection'], [Activity, 'Audit-ready logs']];
 
 const GoogleIcon = () => (
@@ -41,6 +45,13 @@ export default function LoginScreen({ next = '/ask', hint }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
+  const [scene, setScene] = useState(0);
+
+  // the sample insight cycles through a few questions so the panel is never static
+  useEffect(() => {
+    const id = setInterval(() => setScene(n => (n + 1) % SCENES.length), 7500);
+    return () => clearInterval(id);
+  }, []);
 
   const submit = async e => {
     e.preventDefault();
@@ -85,11 +96,13 @@ export default function LoginScreen({ next = '/ask', hint }) {
           </ul>
 
           <div className="la-insight" aria-hidden>
-            <div className="la-q"><Sparkles size={15} /><span className="la-type">Show sales performance in South India last quarter</span><i className="la-caret" /></div>
-            <div className="la-kpis">
-              {KPIS.map(([v, l, d]) => <div key={l}><b>{v}</b><small>{l}</small><em>▲ {d}</em></div>)}
+            <div className="la-scene" key={scene}>
+              <div className="la-q"><Sparkles size={15} /><span className="la-type">{SCENES[scene].q}</span><i className="la-caret" /></div>
+              <div className="la-kpis">
+                {SCENES[scene].tiles.map(([v, l, d]) => <div key={l}><b>{v}</b><small>{l}</small><em>{d}</em></div>)}
+              </div>
+              <svg className="la-spark" viewBox="0 0 300 46" preserveAspectRatio="none"><path d="M0 38 C30 34 45 24 75 26 S125 36 150 22 S205 6 235 14 S280 4 300 2" /></svg>
             </div>
-            <svg className="la-spark" viewBox="0 0 300 46" preserveAspectRatio="none"><path d="M0 38 C30 34 45 24 75 26 S125 36 150 22 S205 6 235 14 S280 4 300 2" /></svg>
             <span className="la-tag">Sample insight</span>
           </div>
         </div>

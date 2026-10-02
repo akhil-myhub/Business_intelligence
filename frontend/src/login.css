@@ -96,30 +96,32 @@
 .la-feats small{display:block;margin-top:2px;font:400 clamp(13px,.9vw,15px)/1.35 var(--head);color:rgba(255,255,255,.7)}
 
 /* animated sample insight (decorative) */
-.la-insight{position:relative;margin-top:clamp(2px,1vh,10px);max-width:clamp(430px,31vw,580px);padding:14px 16px 12px;border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.la-insight{position:relative;margin-top:clamp(2px,1vh,10px);max-width:clamp(380px,28vw,540px);padding:14px 16px 12px;border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .la-q{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:10px;background:rgba(255,255,255,.92);color:#26335c;font:500 clamp(13px,.92vw,15px)/1 var(--head)}
 .la-q svg{flex:none;color:#4F46E5}
-.la-type{display:block;white-space:nowrap;overflow:hidden;clip-path:inset(0 100% 0 0);animation:la-type 2.6s steps(46) .9s forwards}
-@keyframes la-type{to{clip-path:inset(0 0 0 0)}}
+.la-type{display:block;white-space:nowrap;overflow:hidden;animation:la-type 1.7s steps(46) .35s both}
+@keyframes la-type{from{clip-path:inset(0 100% 0 0)}}
 .la-caret{flex:none;width:2px;height:14px;margin-left:-7px;background:#4F46E5;animation:la-blink 1s steps(1) infinite}
 @keyframes la-blink{50%{opacity:0}}
 .la-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
-.la-kpis>div{padding:8px 9px;border-radius:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);opacity:0;transform:translateY(8px);animation:la-pop .6s cubic-bezier(.16,1,.3,1) forwards}
-.la-kpis>div:nth-child(1){animation-delay:3.6s}.la-kpis>div:nth-child(2){animation-delay:3.75s}.la-kpis>div:nth-child(3){animation-delay:3.9s}.la-kpis>div:nth-child(4){animation-delay:4.05s}
-@keyframes la-pop{to{opacity:1;transform:none}}
+.la-kpis>div{padding:8px 9px;border-radius:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);animation:la-pop .6s cubic-bezier(.16,1,.3,1) both}
+.la-kpis>div:nth-child(1){animation-delay:2.05s}.la-kpis>div:nth-child(2){animation-delay:2.2s}.la-kpis>div:nth-child(3){animation-delay:2.35s}.la-kpis>div:nth-child(4){animation-delay:2.5s}
+@keyframes la-pop{from{opacity:0;transform:translateY(8px)}}
 .la-kpis b{display:block;font:700 clamp(15px,1.05vw,19px)/1.1 var(--head)}
 .la-kpis small{display:block;margin-top:3px;font:500 10px/1.1 var(--head);color:rgba(255,255,255,.65)}
 .la-kpis em{display:block;margin-top:4px;font:700 10.5px/1 var(--head);font-style:normal;color:#5ff0a8}
 .la-spark{display:block;width:100%;height:34px;margin-top:8px;overflow:visible}
-.la-spark path{fill:none;stroke:#8fd0ff;stroke-width:2.4;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:420;stroke-dashoffset:420;animation:la-draw 1.6s ease-out 4.2s forwards;filter:drop-shadow(0 0 6px rgba(120,190,255,.7))}
-@keyframes la-draw{to{stroke-dashoffset:0}}
+.la-spark path{fill:none;stroke:#8fd0ff;stroke-width:2.4;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:420;animation:la-draw 1.5s ease-out 2.4s both;filter:drop-shadow(0 0 6px rgba(120,190,255,.7))}
+@keyframes la-draw{from{stroke-dashoffset:420}}
+.la-scene{animation:la-scene 7.5s linear both}
+@keyframes la-scene{0%{opacity:0}5%,93%{opacity:1}100%{opacity:0}}
 .la-tag{position:absolute;top:-9px;right:14px;padding:3px 9px;border-radius:999px;background:#fff;color:#4F46E5;font:700 10px/1.3 var(--head);letter-spacing:.06em;text-transform:uppercase}
 
 .la-trust{list-style:none;margin:0;padding:clamp(10px,1.8vh,16px) 0 0;display:flex;flex-wrap:wrap;gap:8px 22px;border-top:1px solid rgba(255,255,255,.2);font:500 12.5px var(--head);color:rgba(255,255,255,.8)}
 .la-trust li{display:flex;align-items:center;gap:7px}
 .la-trust svg{color:#8fd0ff}
 
-.login-orb{position:absolute;right:-30px;bottom:-30px;width:min(480px,28vw);height:min(480px,48vh);pointer-events:none;opacity:.95}
+.login-orb{position:absolute;right:-30px;bottom:-30px;width:min(400px,22vw);height:min(400px,40vh);pointer-events:none;opacity:.95}
 
 /* entrance */
 .login-aside .la-brand,.login-aside .la-body>*,.login-aside .la-trust{animation:la-rise .8s cubic-bezier(.16,1,.3,1) both}
@@ -131,4 +133,17 @@
 @media(max-width:1000px){.login{grid-template-columns:minmax(0,1fr)}.login-aside{display:none}.login-main{min-height:100vh}}
 @media(max-height:760px){.la-insight{display:none}}
 @media(max-height:620px){.la-feats small{display:none}}
-@media(prefers-reduced-motion:reduce){.login-aside *,.login-aside *:before{animation:none!important}.la-kpis>div{opacity:1;transform:none}.la-type{clip-path:none}.la-spark path{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.login *,.login *:before{animation:none!important}}
+
+/* ── ambient motion (compositor-only) ── */
+.login:before{content:'';position:absolute;inset:-15%;z-index:0;pointer-events:none;
+  background:radial-gradient(38% 42% at 18% 18%,rgba(120,98,255,.3),transparent 70%),radial-gradient(34% 40% at 86% 78%,rgba(40,150,255,.28),transparent 70%),radial-gradient(28% 32% at 70% 14%,rgba(255,140,214,.18),transparent 70%);
+  animation:lg-drift 16s ease-in-out infinite alternate;will-change:transform}
+@keyframes lg-drift{to{transform:translate3d(3%,-2.5%,0) scale(1.08)}}
+.login>*{position:relative;z-index:1}
+.login-orb:before{content:'';position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle,rgba(143,208,255,.55),rgba(143,208,255,0) 68%);animation:lg-pulse 4.5s ease-in-out infinite}
+@keyframes lg-pulse{50%{transform:scale(1.12);opacity:.7}}
+.login-orb canvas{animation:la-fade .9s ease both}
+@keyframes la-fade{from{opacity:0}}
+.lc-form .lf,.lc-check,.lc-submit,.lc-or,.lc-sso,.lc-foot{animation:la-rise .6s cubic-bezier(.16,1,.3,1) both}
+.lc-form .lf:nth-child(1){animation-delay:.18s}.lc-form .lf:nth-child(2){animation-delay:.26s}.lc-check{animation-delay:.34s}.lc-submit{animation-delay:.4s}.lc-or{animation-delay:.48s}.lc-sso{animation-delay:.54s}.lc-foot{animation-delay:.6s}

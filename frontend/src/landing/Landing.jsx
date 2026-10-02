@@ -6,7 +6,6 @@ import DemoForm from './DemoForm';
 import NavMenu from './NavMenu';
 import Screen from './Screen';
 import HeroArt from './HeroArt';
-import ScrollRail from './ScrollRail';
 import { Reveal } from './kit';
 import { BrandMark, TrustIcon } from './art';
 import { Platform, Ask, Visibility } from './sections/Part1';
@@ -90,7 +89,6 @@ export default function Landing() {
       <script dangerouslySetInnerHTML={{ __html: FIT }} />
       <div className="lp-canvas">
         <i className="lp-progress" aria-hidden="true" />
-        <ScrollRail />
         <Nav />
 
         {/* 01 — hero */}
