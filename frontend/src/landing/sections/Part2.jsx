@@ -30,7 +30,7 @@ export function Traceability() {
   const prog = [['Notification Sent', `${outlets} outlets notified`, '12 Jan 2026 10:24 AM', 4], ['Pickup In Progress', `${Math.round(outlets * 0.7)} outlets completed`, '13 Jan 2026 04:12 PM', 5], ['Closure Confirmed', `All ${outlets} outlets`, '15 Jan 2026 11:18 AM', 5]];
   const lit = k => (k === 2 ? step >= 5 : step >= prog[k][3]);
   return (
-    <section id="traceability" className="sx sx-trace">
+    <section className="sx sx-trace">
       <div className="tr-left">
         <Reveal>
           <p className="sx-eyebrow wide">BATCH TRACEABILITY</p>
@@ -100,7 +100,7 @@ export function Insights() {
   const skus = useMemo(() => [...SKU].sort((a, b) => (sort === 'rev' ? b[2] - a[2] : b[3] - a[3])), [sort]);
   const total = Math.round(1892 * m);
   return (
-    <section id="insights" className="sx sx-ins">
+    <section className="sx sx-ins">
       <div className="in-left">
         <Reveal>
           <p className="sx-eyebrow wide">BUSINESS INSIGHTS</p>
@@ -177,7 +177,7 @@ export function Forecast() {
   const cap = [80, 92, 104, 116, 128, 140];
   const W = 380, H = 150, px = i => 36 + i * ((W - 50) / 5), py = v => 12 + (1 - v / 220) * (H - 36);
   return (
-    <section id="forecast" className="sx sx-fc">
+    <section className="sx sx-fc">
       <div className="fc-left">
         <Reveal>
           <p className="sx-eyebrow wide">DEMAND &amp; CAPACITY PLANNING</p>

@@ -1,8 +1,6 @@
 /* Live showcase sections (Part1–Part3). Palette follows the Figma frame. */
 
-.sx{position:relative;isolation:isolate;margin-top:160px;padding:64px 60px;font-family:var(--font-inter),Inter,system-ui,sans-serif;color:#070E36}
-.sx:before{content:'';position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:calc(100vw / var(--lp-zoom,1));transform:translateX(-50%);
-  background:linear-gradient(180deg,#fff 0,#F2F7FF 90px,#EDF4FF calc(100% - 90px),#fff 100%)}
+.sx{position:relative;margin:0;padding:20px 60px;font-family:var(--font-inter),Inter,system-ui,sans-serif;color:#070E36}
 .sx button{font-family:inherit}
 .sx h2,.sx h3,.sx h5,.sx h6,.sx p{margin:0}
 .sx a{color:inherit}

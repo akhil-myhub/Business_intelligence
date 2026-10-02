@@ -49,7 +49,7 @@ function CapPreview({ i }) {
 export function Platform() {
   const [hot, setHot] = useState(null);
   return (
-    <section id="platform" className="sx sx-platform">
+    <section className="sx sx-platform">
       <Reveal><SectionHead eyebrow="ONE PLATFORM. FOUR BUSINESS CAPABILITIES" sub="Connect your sales, operations, products, customers, supply and business data on one AI-powered platform. Get a connected view of your organisation and act with confidence.">Turn fragmented business data<br />into <span>decisions that drive growth.</span></SectionHead></Reveal>
       <div className={'sx-caps' + (hot != null ? ' has-hot' : '')}>
         {CAPS.map(({ n, t, tone, d, cta, to, Icon }, i) => (
@@ -121,7 +121,7 @@ export function Ask() {
   };
   const chips = QA.map((x, k) => [x, k]).filter(([, k]) => k !== i).slice(0, 3);
   return (
-    <section id="ask" className="sx sx-ask">
+    <section className="sx sx-ask">
       <div className="ask-left">
         <Reveal>
           <p className="sx-eyebrow wide">ASK YOUR BUSINESS — AI INTELLIGENCE</p>
@@ -195,7 +195,7 @@ export function Visibility() {
   const level = k => (k === 0 ? 'India' : k === 1 ? st.n : k === 2 ? city[0] : k === 3 ? dist[0] : clusters[sel.store][0]);
   const spark = Array.from({ length: 6 }, (_, k) => 8 + seedNum(store[0] + k, 0, 6) + k * 2.4);
   return (
-    <section id="visibility" className="sx sx-vis">
+    <section className="sx sx-vis">
       <Reveal><SectionHead eyebrow="SALES VISIBILITY" sub="Start from the national view, then drill down from India to state, city, distributor and store performance in seconds.">See the business clearly <span>at every level.</span></SectionHead></Reveal>
       <div className="vis-kpis">
         {[['National Revenue', '₹ 8,426 Cr', '+18%', 'vs LY', BarChart3, 'blue'], ['States Live', '28 / 28', null, '100% coverage', Target, 'blue'], ['Distributors Active', '1,240', '+12%', 'vs LY', UsersRound, 'purple'], ['Stores Tracked', '125,000+', '+28%', 'vs LY', Store, 'green']].map(([l, v, g, s, Icon, tone]) => (

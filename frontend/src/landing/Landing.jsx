@@ -3,18 +3,26 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ChevronDown, UsersRound } from 'lucide-react';
 import DemoForm from './DemoForm';
+import NavMenu from './NavMenu';
+import Screen from './Screen';
+import { BenefitArt, BrandMark, GapArt, TrustIcon } from './art';
 import { Platform, Ask, Visibility } from './sections/Part1';
 import { Traceability, Insights, Forecast } from './sections/Part2';
 import { Foundation, Overview, Implementation } from './sections/Part3';
 import './landing.css';
 import './sections.css';
+import './art.css';
+import './unify.css';
+import './responsive.css';
 
 // Pixel-faithful build of the "BI landing page" Figma frame (1440 px wide). Text, buttons, cards and the form
 // are live HTML using the Figma values; illustrations and the full-width product sections are the frame's own
 // raster artwork (public/landing). The canvas is scaled to the viewport so every screen sees the Figma layout.
 
 // Sets --lp-zoom before first paint (and on resize) so the 1440 px canvas fits the window width.
-const FIT = `(function(){function f(){var w=document.documentElement.clientWidth;document.documentElement.style.setProperty('--lp-zoom',Math.min(1,w/1440))}f();addEventListener('resize',f)})();`;
+// ≥1100px: zoom = window width / design width, but never so large that the hero (first 690 design px) overflows the window height; capped at 1.6.
+// <1100px: no zoom — responsive.css switches to a fluid layout.
+const FIT = `(function(){function f(){var d=document.documentElement,w=d.clientWidth;d.style.setProperty('--lp-zoom',w<1100?1:Math.min(w/1440,1.6))}f();addEventListener('resize',f)})();`;
 
 const NAV = [
   { label: 'Product', menu: [['Platform overview', '#platform'], ['Ask your business', '#ask'], ['Sales visibility', '#visibility']] },
@@ -32,10 +40,10 @@ const BENEFITS = [
 ];
 
 const TRUST = [
-  ['FMCG focused', 'Built for real-world scale', 46, 40],
-  ['Enterprise grade', 'Secure and reliable', 40, 43],
-  ['Fast to deploy', 'From weeks to value', 36, 37],
-  ['Proven impact', 'Trusted by market leaders', 44, 43]
+  ['FMCG focused', 'Built for real-world scale'],
+  ['Enterprise grade', 'Secure and reliable'],
+  ['Fast to deploy', 'From weeks to value'],
+  ['Proven impact', 'Trusted by market leaders']
 ];
 
 const GAPS = [
@@ -52,7 +60,7 @@ function Nav() {
     <header className="lp-nav">
       <div className="lp-nav-row">
         <Link href="/" aria-label="Aavtor.ai home" className="lp-logo">
-          <Image src="/landing/aavtor-wordmark.png" alt="Aavtor.ai" width={124} height={28} priority />
+          <BrandMark height={26} /><span className="lp-wm">Aavtor<i>.ai</i></span>
         </Link>
         <nav className="lp-links" aria-label="Main">
           {NAV.map(item => item.menu ? (
@@ -65,6 +73,7 @@ function Nav() {
           ) : <a key={item.label} href={item.href}>{item.label}</a>)}
         </nav>
         <a href="#demo" className="lp-btn lp-btn-nav">Book a Live Demo</a>
+        <NavMenu groups={NAV.map(i => (i.menu ? { label: i.label, heading: true, links: i.menu } : { label: i.label, links: [[i.label, i.href]] }))} />
       </div>
     </header>
   );
@@ -78,6 +87,7 @@ export default function Landing() {
         <Nav />
 
         {/* 01 — hero */}
+        <Screen id="top" nav={false} fill={false} floor={0.7}>
         <section className="lp-hero">
           <div className="lp-hero-fade" />
           <div className="lp-hero-content">
@@ -92,10 +102,12 @@ export default function Landing() {
               <span>Built for FMCG owners, CXOs, sales, supply chain and quality teams.</span>
             </div>
           </div>
-          <Image className="lp-hero-art" src="/landing/hero-wireframe.webp" alt="The ten screens of the BusinessAI workspace" width={675} height={453} priority />
+          <div className="lp-hero-art"><Image src="/landing/hero-wireframe.webp" alt="The ten screens of the BusinessAI workspace" fill sizes="720px" quality={95} priority /></div>
         </section>
+        </Screen>
 
         {/* 02 — benefits + trust */}
+        <Screen id="why">
         <section className="lp-benefits">
           <div className="lp-head">
             <p className="lp-eyebrow">WHY LEADING FMCG TEAMS CHOOSE Aavtor ERP</p>
@@ -105,7 +117,7 @@ export default function Landing() {
           <div className="lp-cards">
             {BENEFITS.map(([title, desc], i) => (
               <article key={title} className="lp-card">
-                <Image src={`/landing/benefit-${i}.webp`} alt="" width={265} height={199} />
+                <BenefitArt i={i} />
                 <div className="lp-card-copy"><h3>{title}</h3><p>{desc}</p></div>
               </article>
             ))}
@@ -113,17 +125,19 @@ export default function Landing() {
           <div className="lp-trust" id="trust">
             <p className="lp-trust-eyebrow">TRUSTED BY LEADING FMCG TEAMS</p>
             <ul>
-              {TRUST.map(([title, desc, w, h], i) => (
+              {TRUST.map(([title, desc], i) => (
                 <li key={title}>
-                  <span className="lp-trust-ico"><Image src={`/landing/trust-${i}.png`} alt="" width={w} height={h} /></span>
+                  <span className="lp-trust-ico"><TrustIcon i={i} /></span>
                   <span><b>{title}</b><small>{desc}</small></span>
                 </li>
               ))}
             </ul>
           </div>
         </section>
+        </Screen>
 
         {/* 03 — the business intelligence gap */}
+        <Screen id="gap">
         <section className="lp-gap">
           <div className="lp-gap-head">
             <p>THE BUSINESS INTELLIGENCE GAP</p>
@@ -134,26 +148,28 @@ export default function Landing() {
           <div className="lp-gap-cards">
             {GAPS.map(([title, desc], i) => (
               <article key={title} className="lp-gap-card">
-                <Image className="lp-gap-art" src={`/landing/gap-${i}.webp`} alt="" width={290} height={166} />
+                <GapArt i={i} />
                 <div><h3>{title}</h3><p>{desc}</p></div>
               </article>
             ))}
           </div>
         </section>
+        </Screen>
 
-        {/* 04–12 — product showcase: live, interactive sections */}
-        <Platform />
-        <Ask />
-        <Visibility />
-        <Traceability />
-        <Insights />
-        <Forecast />
-        <Foundation />
-        <Overview />
-        <Implementation />
+        {/* 04–12 — product showcase: live, interactive sections (each one screen) */}
+        <Screen id="platform" tone="a" wide><Platform /></Screen>
+        <Screen id="ask" tone="b" wide><Ask /></Screen>
+        <Screen id="visibility" tone="a" wide><Visibility /></Screen>
+        <Screen id="traceability" tone="b" wide><Traceability /></Screen>
+        <Screen id="insights" tone="a" wide><Insights /></Screen>
+        <Screen id="forecast" tone="b" wide><Forecast /></Screen>
+        <Screen id="foundation" tone="a" wide><Foundation /></Screen>
+        <Screen id="overview" tone="b" wide><Overview /></Screen>
+        <Screen id="implementation" tone="a" wide><Implementation /></Screen>
 
         {/* 13 — book a live demo */}
-        <section className="lp-cta lp-bleed" id="demo" style={{ '--edges': 'url(/landing/cta-backdrop-edges.png)' }}>
+        <Screen id="demo" nav={false} floor={0.5}>
+        <section className="lp-cta lp-bleed" style={{ '--edges': 'url(/landing/cta-backdrop-edges.png)' }}>
           <Image className="lp-cta-bg" src="/landing/cta-backdrop.webp" alt="" width={1440} height={1108} />
           <div className="lp-cta-eyebrow"><span>AI-POWERED FMCG INTELLIGENCE</span><i /></div>
           <h2 className="lp-cta-title">See your <span>business live</span><em>.</em></h2>
@@ -161,6 +177,7 @@ export default function Landing() {
           {PROMISE.map((label, i) => <span key={label} className="lp-promise" style={{ left: 131 + 189 * i }}>{label}</span>)}
           <DemoForm />
         </section>
+        </Screen>
       </div>
     </div>
   );

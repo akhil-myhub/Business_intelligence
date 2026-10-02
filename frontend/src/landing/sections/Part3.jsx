@@ -22,7 +22,7 @@ const ENGINE = [['Natural-language queries', 'Ask questions and get instant insi
 export function Foundation() {
   const [on, setOn] = useState('0-0');
   return (
-    <section id="foundation" className="sx sx-fd">
+    <section className="sx sx-fd">
       <Reveal><SectionHead eyebrow="HOW THE PLATFORM WORKS" sub="Connect the systems you already use — then turn operational data into intelligence your teams can act on.">One connected <span>data foundation.</span></SectionHead></Reveal>
       <div className="fd-cols">
         {COLS.map((c, ci) => (
@@ -62,7 +62,7 @@ const ENT = [['Role-based Experience', UsersRound], ['SSO Integration', KeyRound
 
 export function Overview() {
   return (
-    <section id="overview" className="sx sx-ov">
+    <section className="sx sx-ov">
       <Reveal><SectionHead eyebrow="THE PLATFORM AT A GLANCE" sub="Six connected capabilities, one enterprise-ready foundation. Select any card to jump to the details.">Everything your business needs, <span>in one place.</span></SectionHead></Reveal>
       <div className="ov-grid">
         {TILES.map(({ id, t, s, d, to, Icon, tone, bullets }, i) => (
@@ -117,7 +117,7 @@ function PhasePanel({ p }) {
 export function Implementation() {
   const [p, setP] = useState(1);
   return (
-    <section id="implementation" className="sx sx-im">
+    <section className="sx sx-im">
       <Reveal><SectionHead eyebrow="FROM SETUP TO REAL RESULTS" sub="A structured rollout to get you from data to measurable business outcomes.">Implementation + <span>Business Impact</span></SectionHead></Reveal>
       <ol className="im-steps">
         {PHASES.map(x => (

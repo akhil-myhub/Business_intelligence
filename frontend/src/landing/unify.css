@@ -1,0 +1,77 @@
+/* Single design system for the whole landing page. Loaded after every section stylesheet (and before responsive.css),
+   so anything the sections define individually is normalised here. Change a token → the whole page follows. */
+
+.lp-root{
+  --c-brand:#0962FF;--c-ink:#070E36;--c-head:#080A29;--c-body:#576C95;--c-line:#DCEBFF;
+  --r-card:18px;--r-panel:22px;--r-btn:10px;
+  --shadow-card:0 10px 30px -18px rgba(9,98,255,.26);--shadow-panel:0 24px 60px -36px rgba(9,60,200,.38);
+  --font:var(--font-inter),Inter,system-ui,sans-serif;
+  font-family:var(--font)
+}
+
+/* ── one background for every section: white base with the same soft blue light ── */
+.lp-root,.lp-screen{background:#fff}
+.lp-screen:before{content:'';position:absolute;z-index:-1;inset:0;
+  background:radial-gradient(900px 520px at 88% 0%,rgba(196,219,255,.5),transparent 70%),radial-gradient(820px 520px at 0% 100%,rgba(214,231,255,.45),transparent 70%),#fff}
+.lp-screen.tone-a:before,.lp-screen.tone-b:before{background:radial-gradient(900px 520px at 88% 0%,rgba(196,219,255,.5),transparent 70%),radial-gradient(820px 520px at 0% 100%,rgba(214,231,255,.45),transparent 70%),#fff}
+.lp-hero,.lp-benefits{background:transparent}
+.lp-hero{border-radius:0}
+.lp-hero-fade{display:none}
+
+/* ── eyebrows ── */
+.lp-canvas .lp-eyebrow,.lp-canvas .sx-eyebrow,.lp-canvas .lp-gap-head p,.lp-canvas .lp-trust-eyebrow,.lp-canvas .lp-cta-eyebrow span,.lp-canvas .lp-form-eyebrow{
+  font:700 13px/18px var(--font);letter-spacing:.16em;text-transform:uppercase;color:var(--c-brand)}
+.lp-canvas .lp-cta-eyebrow i{background:#A6C9FF}
+
+/* ── headings: 44px centred, 48px split-layout, same weight/tracking/colour everywhere ── */
+.lp-canvas .lp-head h2,.lp-canvas .sx-head h2,.lp-canvas .lp-gap-head h2{
+  font:700 44px/52px var(--font);letter-spacing:-.8px;color:var(--c-head);margin-top:14px;height:auto}
+.lp-canvas .lp-head h2 span,.lp-canvas .sx h2 span,.lp-canvas .lp-gap-head h2 span{color:var(--c-brand)}
+.lp-canvas .sx-ask h2,.lp-canvas .sx-trace h2,.lp-canvas .sx-ins h2,.lp-canvas .sx-fc h2,.lp-canvas .out-intro h3,.lp-canvas .lp-hero h1{
+  font:700 48px/54px var(--font);letter-spacing:-1.2px;color:var(--c-head)}
+.lp-canvas .lp-hero h1{font-size:46px;line-height:54px;letter-spacing:-1px;width:auto}
+.lp-canvas .lp-hero h1 span{color:var(--c-brand)}
+.lp-canvas .lp-cta-title{font:700 56px/62px var(--font);letter-spacing:-1.4px;color:var(--c-head)}
+.lp-canvas .lp-cta-title span{color:var(--c-brand)}.lp-canvas .lp-cta-title em{color:#4911CC}
+.lp-canvas .lp-form-head h3{font:700 30px/34px var(--font);letter-spacing:-.6px;color:var(--c-head)}
+
+/* ── supporting text ── */
+.lp-canvas .lp-sub,.lp-canvas .sx-sub,.lp-canvas .lp-gap-head span,.lp-canvas .lp-cta-desc,.lp-canvas .lp-hero-content>p{
+  font:400 20px/28px var(--font);color:var(--c-body)}
+.lp-canvas .lp-hero-content>p{font-size:18px;line-height:27px;color:#26335c}
+.lp-canvas .sx-sub.left{font-size:17px;line-height:25px}
+.lp-canvas .lp-cta-desc{width:auto;max-width:720px}
+
+/* ── cards and panels: one border, radius and shadow ── */
+.lp-canvas .lp-card,.lp-canvas .lp-gap-card,.lp-canvas .card,.lp-canvas .vc,.lp-canvas .aa-card,.lp-canvas .tr-aff,.lp-canvas .tr-prog,.lp-canvas .fc-feat,.lp-canvas .fc-kpis>div,.lp-canvas .tr-head,.lp-canvas .ask-answer,.lp-canvas .out article,.lp-canvas .sx-banner,.lp-canvas .win-cta,.lp-canvas .fc-ai,.lp-canvas .ent-head{
+  background:rgba(255,255,255,.94);border:1px solid var(--c-line);border-radius:var(--r-card);box-shadow:var(--shadow-card)}
+.lp-canvas .cap article,.lp-canvas .ov-tile,.lp-canvas .win,.lp-canvas .tr-board,.lp-canvas .fc-board,.lp-canvas .fd-col article,.lp-canvas .ov-ent,.lp-canvas .im-out,.lp-canvas .im-panel,.lp-canvas .lp-form-card,.lp-canvas .in-ai,.lp-canvas .vis-kpis,.lp-canvas .in-kpis{
+  background:rgba(255,255,255,.88);border:1px solid var(--c-line);border-radius:var(--r-panel);box-shadow:var(--shadow-panel);backdrop-filter:blur(6px)}
+.lp-canvas .ent-head{box-shadow:none;border:0;background:none}
+.lp-canvas .lp-card:hover,.lp-canvas .lp-gap-card:hover,.lp-canvas .ov-tile:hover,.lp-canvas .cap article:hover{border-color:#B8D2FF}
+/* card typography */
+.lp-canvas .lp-card h3,.lp-canvas .lp-gap-card h3,.lp-canvas .ov-tile b{font:700 22px/28px var(--font);letter-spacing:-.5px;color:var(--c-head)}
+.lp-canvas .lp-card p,.lp-canvas .lp-gap-card p,.lp-canvas .ov-tile p{font:400 16px/23px var(--font);color:var(--c-body)}
+.lp-canvas .lp-card{padding:30px 26px 24px}
+.lp-canvas .lp-card-copy{gap:10px}
+
+/* ── buttons: one shape and font ── */
+.lp-canvas .lp-btn,.lp-canvas .btn-out,.lp-canvas .lp-form-btn{border-radius:var(--r-btn);font:500 15px/20px var(--font)}
+.lp-canvas .lp-btn-hero{font-size:16px;height:52px;width:auto;padding:0 26px}
+.lp-canvas .lp-btn-nav{font-size:15px;height:42px;width:auto;padding:0 22px}
+.lp-canvas .lp-form-btn{height:46px;font-weight:600}
+.lp-canvas .lp-link,.lp-canvas .lp-trust-eyebrow,.lp-canvas .lp-audience{font-family:var(--font)}
+.lp-canvas .lp-link{font-weight:600;font-size:16px}
+.lp-canvas .lp-audience{font-size:15px;font-weight:500;color:#26335c}
+
+/* ── nav ── */
+.lp-canvas .lp-links>a,.lp-canvas .lp-drop>button{font:500 15px/20px var(--font)}
+.lp-canvas .lp-wm{font:600 22px/1 var(--font-jakarta),var(--font)}
+
+/* ── form ── */
+.lp-canvas .lp-form-sub{font:400 14px/20px var(--font);color:var(--c-body);width:auto}
+.lp-canvas .lp-field{border-radius:var(--r-btn);height:42px}
+.lp-canvas .lp-field input,.lp-canvas .lp-field select,.lp-canvas .lp-field textarea{font-size:13.5px}
+.lp-canvas .lp-area{height:84px}
+.lp-canvas .lp-privacy span{font-size:12px;line-height:18px}
+.lp-canvas .lp-promise{font:500 14px/130% var(--font);color:#19336B}

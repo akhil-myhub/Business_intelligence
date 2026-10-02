@@ -34,6 +34,7 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  images: { qualities: [75, 95] }, // 95 is used for the hero artwork
   compress: true,
   productionBrowserSourceMaps: false,
   output: 'standalone', // minimal self-contained server for containers
