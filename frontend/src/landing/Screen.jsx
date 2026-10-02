@@ -16,7 +16,7 @@ const MAX_PASSES = 7;   // layout-solving passes per resize
  * scaled to fit the window height, it also fills the window width. Every section therefore uses the whole
  * screen, whatever its natural proportions. Below 1100px nothing is scaled — responsive.css takes over.
  */
-export default function Screen({ id, children, tone, nav = true, fill = true, wide = false, floor = 0.4 }) {
+export default function Screen({ id, children, tone, nav = true, fill = true, wide = false, floor = 0.4, budget = 1 }) {
   const maxWide = typeof wide === 'number' ? wide : MAX_WIDE; // `wide={1700}` caps how far a section may re-flow
   const inner = useRef(null);
   const [box, setBox] = useState(null); // { s, w } — null until measured → CSS falls back to the width-based --lp-zoom
@@ -30,7 +30,7 @@ export default function Screen({ id, children, tone, nav = true, fill = true, wi
     const fit = natural => {
       const vw = window.innerWidth;
       const z0 = Math.min(vw / DESIGN_W, MAX_ZOOM);
-      const avail = window.innerHeight - (nav ? NAV * z0 : 0);
+      const avail = window.innerHeight * budget - (nav ? NAV * z0 : 0); // `budget` < 1 leaves breathing room below the section
       return { vw, avail, byHeight: natural ? avail / natural : MAX_ZOOM };
     };
 
@@ -63,7 +63,7 @@ export default function Screen({ id, children, tone, nav = true, fill = true, wi
     window.addEventListener('resize', onResize);
     document.fonts?.ready.then(onResize);
     return () => { ro.disconnect(); window.removeEventListener('resize', onResize); };
-  }, [nav, wide, floor, maxWide]);
+  }, [nav, wide, floor, maxWide, budget]);
 
   const style = box ? { zoom: box.s, '--fit': box.s, ...(box.w ? { width: box.w } : null) } : undefined;
   const cls = ['lp-screen', tone && `tone-${tone}`, nav && 'has-nav', fill && 'fill'].filter(Boolean).join(' ');

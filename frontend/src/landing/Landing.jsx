@@ -88,7 +88,7 @@ export default function Landing() {
         <Nav />
 
         {/* 01 — hero */}
-        <Screen id="top" nav={false} fill={false} wide floor={0.7}>
+        <Screen id="top" nav={false} fill={false} wide={1600} floor={0.6} budget={0.88}>
         <section className="lp-hero">
           <div className="lp-hero-content">
             <span className="lp-pill"><i />LIVE PRODUCT <b>·</b> 2026</span>

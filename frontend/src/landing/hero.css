@@ -1,7 +1,7 @@
 /* Hero — matches the "AI Business Intelligence for FMCG" slide: soft lavender/blue wash, live-product pill,
    gradient headline, three proof points and floating metric cards around the product render. */
 
-.lp-canvas .lp-hero{position:relative;width:100%;height:800px;overflow:visible;background:transparent;border-radius:0}
+.lp-canvas .lp-hero{position:relative;width:100%;height:840px;overflow:visible;background:transparent;border-radius:0}
 .lp-canvas .lp-hero:before{content:'';position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:calc(100vw / var(--fit,1));transform:translateX(-50%);
   background:
     radial-gradient(900px 560px at 92% 8%,rgba(246,205,236,.75),transparent 70%),
@@ -10,7 +10,7 @@
     linear-gradient(90deg,#fff 0,#FBFAFF 45%,#F2F0FF 100%)}
 .lp-canvas .lp-hero-fade{display:none}
 
-.lp-canvas .lp-hero-content{position:absolute;left:76px;top:112px;width:600px}
+.lp-canvas .lp-hero-content{position:absolute;left:76px;top:140px;width:600px}
 .lp-pill{display:inline-flex;align-items:center;gap:12px;height:46px;padding:0 24px;border-radius:999px;background:rgba(255,255,255,.92);border:1px solid #E6E3F6;
   font:700 15px/1 var(--font-inter),Inter,sans-serif;letter-spacing:.14em;color:#23235C;box-shadow:0 8px 22px -14px rgba(60,40,160,.35)}
 .lp-pill i{width:11px;height:11px;border-radius:50%;background:#12B76A;box-shadow:0 0 0 0 rgba(18,183,106,.5);animation:lp-ping 1.9s ease-out infinite}
@@ -32,7 +32,7 @@
 .lp-canvas .lp-audience{padding-top:24px}
 .lp-canvas .lp-audience-ico{background:#4F46E5;width:42px;height:42px}
 
-.lp-canvas .lp-hero-art{position:absolute;right:30px;top:100px;width:780px;height:640px}
+.lp-canvas .lp-hero-art{position:absolute;right:30px;top:128px;width:780px;height:640px}
 .lp-canvas .lp-hero-art img{object-fit:contain;object-position:center;mix-blend-mode:multiply}
 
 @media (prefers-reduced-motion:reduce){.lp-pill i{animation:none}}
