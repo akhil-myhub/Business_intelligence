@@ -184,13 +184,19 @@ export default function Landing() {
         <Screen id="implementation" tone="a" wide><Implementation /></Screen>
 
         {/* 13 — book a live demo */}
-        <Screen id="demo" nav={false} floor={0.5}>
+        <Screen id="demo" wide={1560} budget={0.97}>
         <section className="lp-cta">
-          <Image className="lp-cta-bg" src="/landing/cta-backdrop.webp" alt="" width={1440} height={1108} />
-          <div className="lp-cta-eyebrow"><span>AI-POWERED FMCG INTELLIGENCE</span><i /></div>
-          <h2 className="lp-cta-title">See your <span>business live</span><em>.</em></h2>
-          <p className="lp-cta-desc">Experience how AI turns your FMCG data into real decisions,{" "}<br />faster growth and measurable impact.</p>
-          {PROMISE.map((label, i) => <span key={label} className="lp-promise" style={{ left: 131 + 189 * i }}>{label}</span>)}
+          <div className="lp-cta-copy">
+            <div className="lp-cta-eyebrow"><span>AI-POWERED FMCG INTELLIGENCE</span><i /></div>
+            <h2 className="lp-cta-title">See your <span>business live</span><em>.</em></h2>
+            <p className="lp-cta-desc">Experience how AI turns your FMCG data into real decisions,{" "}<br />faster growth and measurable impact.</p>
+            <ul className="lp-promises">
+              {PROMISE.map((label, i) => (
+                <li key={label}><Image src={`/landing/promise-${i}.webp`} alt="" width={52} height={52} /><span>{label}</span></li>
+              ))}
+            </ul>
+            <Image className="lp-cta-mockup" src="/landing/cta-mockup.webp" alt="The FMCG Intelligence dashboard on laptop and phone" width={840} height={540} />
+          </div>
           <DemoForm />
         </section>
         </Screen>

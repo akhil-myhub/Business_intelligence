@@ -104,15 +104,14 @@
   .ph{flex-direction:column;gap:18px}
   .ph-map{width:200px}
 
-  /* demo CTA: the absolute-positioned artboard becomes a normal stacked block */
-  .lp-cta{height:auto;margin-top:56px;padding:44px 24px 70px;display:flex;flex-direction:column;gap:18px}
-  .lp-cta-bg,.lp-promise{display:none}
-  .lp-cta-eyebrow,.lp-cta-title,.lp-cta-desc,.lp-form-card{position:static}
+  /* demo CTA: copy, artwork and form stack in one column */
+  .lp-cta{display:flex;flex-direction:column;gap:18px;margin-top:40px;padding:44px 24px 70px}
+  .lp-cta:before{inset:0}
   .lp-cta-title{white-space:normal;font-size:clamp(38px,8vw,56px)}
-  .lp-cta-desc{width:auto;font-size:clamp(17px,2.6vw,20px)}
+  .lp-cta-desc{font-size:clamp(17px,2.6vw,20px)}
   .lp-cta-desc br{display:none}
-  .lp-form-card{width:100%;max-width:520px;height:auto;margin:10px auto 0}
-  .lp-form-sub{width:auto}
+  .lp-promises{flex-wrap:wrap;gap:16px 22px}
+  .lp-form-card{max-width:520px;margin:10px auto 0}
   .lp-form-btn{width:100%}
   .lp-privacy{width:auto}
 }

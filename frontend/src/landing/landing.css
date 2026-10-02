@@ -91,19 +91,27 @@ html:has(.lp-root){background:#fff;scroll-behavior:smooth}
 .lp-gap-card p{font:400 20px/23px var(--font-inter),Inter,sans-serif;color:#6073A3}
 
 /* ── 13 book a live demo (Frame 2147226312) ────────────────────────── */
-.lp-cta{position:relative;width:1440px;height:1108px}
-.lp-cta-bg{position:absolute;inset:0;width:1440px;height:1108px}
-.lp-cta-eyebrow{position:absolute;left:62px;top:65.4px;display:flex;align-items:center;gap:15px}
+.lp-cta{position:relative;width:100%;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,820px) 410px;justify-content:center;column-gap:96px;align-items:center;padding:8px 70px 16px}
+.lp-cta:before{content:'';position:absolute;inset:-6% -2% -4% 36%;z-index:-1;pointer-events:none;
+  background:radial-gradient(58% 62% at 80% 30%,rgba(173,205,255,.5),transparent 72%),radial-gradient(48% 40% at 26% 90%,rgba(190,215,255,.35),transparent 75%)}
+.lp-cta-copy{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.lp-cta-eyebrow{display:flex;align-items:center;gap:15px}
 .lp-cta-eyebrow span{font:400 12px/15px var(--font-inter),Inter,sans-serif;color:#0561FF}
 .lp-cta-eyebrow i{display:block;width:69px;height:1px;background:#A6C9FF}
-.lp-cta-title{position:absolute;left:59px;top:86.4px;white-space:nowrap;font:400 68px/115% var(--font-inter),Inter,sans-serif;color:#080D36}
+.lp-cta-title{margin-top:12px;white-space:nowrap;font:400 68px/115% var(--font-inter),Inter,sans-serif;color:#080D36}
 .lp-cta-title span{color:#0561FF}
 .lp-cta-title em{font-style:normal;color:#4911CC}
-.lp-cta-desc{position:absolute;left:60px;top:168.4px;width:700px;font:400 22px/128% var(--font-inter),Inter,sans-serif;color:#6574AA}
-.lp-promise{position:absolute;top:253px;white-space:pre-line;font:400 14px/130% var(--font-inter),Inter,sans-serif;color:#19336B}
+.lp-cta-desc{margin-top:12px;max-width:680px;font:400 22px/128% var(--font-inter),Inter,sans-serif;color:#6574AA}
+.lp-promises{list-style:none;display:flex;gap:28px;margin:22px 0 0;padding:0}
+.lp-promises li{display:flex;align-items:center;gap:10px}
+.lp-promises img{flex:none;width:52px;height:52px;border-radius:50%}
+.lp-promises span{white-space:pre-line;font:500 14px/130% var(--font-inter),Inter,sans-serif;color:#19336B}
+.lp-cta-mockup{display:block;width:100%;max-width:820px;height:auto;margin-top:12px;mix-blend-mode:multiply;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent);mask-composite:intersect}
 
-.lp-form-card{position:absolute;left:970.5px;top:165px;width:409.5px;height:618px;box-sizing:border-box;padding:25px 24px;display:flex;flex-direction:column;gap:21px;
-  background:#FCFDFF;border:1px solid #D5E9FF;border-radius:27px}
+.lp-form-card{position:relative;width:100%;box-sizing:border-box;padding:25px 24px;display:flex;flex-direction:column;gap:21px;
+  background:#FCFDFF;border:1px solid #D5E9FF;border-radius:27px;box-shadow:0 30px 60px -36px rgba(9,60,200,.35)}
 .lp-form-eyebrow{font:400 11px/13px var(--font-inter),Inter,sans-serif;color:#0561FF}
 .lp-form-head h3{font:400 31px/101% var(--font-inter),Inter,sans-serif;color:#080D36}
 .lp-form-head h3 span{color:#0561FF}
