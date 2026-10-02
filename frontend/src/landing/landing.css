@@ -10,7 +10,7 @@ html:has(.lp-root){background:#fff;scroll-behavior:smooth}
 
 /* ── nav (Frame 2147226099) ─────────────────────────────────────────── */
 .lp-nav{position:sticky;top:0;z-index:50;zoom:var(--lp-zoom,1);width:1440px;height:72px;margin:0 auto -72px;padding:16px 140px;box-sizing:border-box;border-radius:0 0 18px 18px;
-  background:linear-gradient(180deg,#EAF1FF 0%,rgba(244,248,255,.94) 100%);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(9,98,255,.08),0 10px 30px -18px rgba(9,60,200,.35)}
+  background:rgba(255,255,255,.94);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(9,98,255,.08),0 10px 30px -18px rgba(9,60,200,.35)}
 .lp-nav:before{content:'';position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:calc(100vw / var(--lp-zoom,1));transform:translateX(-50%);background:inherit;box-shadow:inherit;border-radius:0}
 .lp-nav-row{display:flex;justify-content:space-between;align-items:center;gap:10px;height:40px}
 .lp-logo{display:block;margin-left:-2px;line-height:0}
@@ -120,6 +120,7 @@ html:has(.lp-root){background:#fff;scroll-behavior:smooth}
 .lp-fields{display:flex;flex-direction:column;gap:6px}
 .lp-field{box-sizing:border-box;display:flex;align-items:center;gap:13px;height:38px;padding:0 14px;border:1px solid #DCE3F3;border-radius:7px;background:#fff;color:#5E6EA4;
   transition:border-color .15s,box-shadow .15s}
+.lp-field input:focus-visible,.lp-field textarea:focus-visible,.lp-select-btn:focus-visible{box-shadow:none}
 .lp-field:focus-within{border-color:#0561FF;box-shadow:0 0 0 3px rgba(5,97,255,.12)}
 .lp-field svg{flex:none}
 .lp-field input,.lp-field select,.lp-field textarea{flex:1;min-width:0;border:0;outline:0;background:transparent;padding:0;font:400 11.5px/14px var(--font-inter),Inter,sans-serif;color:#080D36}
