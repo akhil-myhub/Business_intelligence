@@ -1,10 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Barcode, ChartColumnIncreasing, ChevronDown, MapPinned, UsersRound } from 'lucide-react';
+import { ArrowRight, ChevronDown, UsersRound } from 'lucide-react';
 import DemoForm from './DemoForm';
 import NavMenu from './NavMenu';
 import Screen from './Screen';
+import HeroArt from './HeroArt';
+import ScrollRail from './ScrollRail';
+import { Reveal } from './kit';
 import { BrandMark, TrustIcon } from './art';
 import { Platform, Ask, Visibility } from './sections/Part1';
 import { Traceability, Insights, Forecast } from './sections/Part2';
@@ -14,6 +17,7 @@ import './sections.css';
 import './art.css';
 import './unify.css';
 import './hero.css';
+import './motion.css';
 import './responsive.css';
 
 // Pixel-faithful build of the "BI landing page" Figma frame (1440 px wide). Text, buttons, cards and the form
@@ -85,20 +89,16 @@ export default function Landing() {
     <div className="lp-root">
       <script dangerouslySetInnerHTML={{ __html: FIT }} />
       <div className="lp-canvas">
+        <i className="lp-progress" aria-hidden="true" />
+        <ScrollRail />
         <Nav />
 
         {/* 01 — hero */}
         <Screen id="top" wide={1800} floor={0.6}>
         <section className="lp-hero">
           <div className="lp-hero-content">
-            <span className="lp-pill"><i />LIVE PRODUCT <b>·</b> 2026</span>
-            <h1>AI Business<br /><span>Intelligence</span><br />for FMCG</h1>
-            <p>See every sale in every state, trace any batch to the exact store, and plan capacity from real demand.</p>
-            <ul className="lp-points">
-              <li><MapPinned size={26} />Nationwide sales visibility</li>
-              <li><Barcode size={26} />Batch-level traceability &amp; recall</li>
-              <li><ChartColumnIncreasing size={26} />Demand-led capacity planning</li>
-            </ul>
+            <h1>See your entire business.<br /><span>From data to decisions.</span></h1>
+            <p>Connect your sales, operations, products, customers, supply and business data in one AI-powered intelligence platform. Ask your business anything, understand what&rsquo;s changing, and turn complex data into clear, actionable decisions.</p>
             <div className="lp-hero-ctas">
               <a href="#demo" className="lp-btn lp-btn-hero">Book a Live Demo <ArrowRight size={18} strokeWidth={1.6} /></a>
               <Link href="/login" className="lp-link">See the Platform <ArrowRight size={18} strokeWidth={1.6} /></Link>
@@ -108,26 +108,31 @@ export default function Landing() {
               <span>Built for FMCG owners, CXOs, sales, supply chain and quality teams.</span>
             </div>
           </div>
-          <div className="lp-hero-art"><Image src="/landing/hero-wireframe.webp" alt="The ten screens of the BusinessAI workspace" fill sizes="920px" quality={95} priority /></div>
+          <HeroArt />
         </section>
         </Screen>
 
         {/* 02 — benefits + trust */}
         <Screen id="why" wide={1800} budget={0.95}>
         <section className="lp-benefits">
-          <div className="lp-head">
-            <p className="lp-eyebrow">WHY LEADING FMCG TEAMS CHOOSE Aavtor ERP</p>
-            <h2>From complete visibility to confident decisions<span>.</span></h2>
-            <p className="lp-sub">One AI-powered platform. Real business impact across your FMCG value chain.</p>
-          </div>
+          <Reveal>
+            <div className="lp-head">
+              <p className="lp-eyebrow">WHY LEADING FMCG TEAMS CHOOSE Aavtor ERP</p>
+              <h2>From complete visibility to confident decisions<span>.</span></h2>
+              <p className="lp-sub">One AI-powered platform. Real business impact across your FMCG value chain.</p>
+            </div>
+          </Reveal>
           <div className="lp-cards">
             {BENEFITS.map(([title, desc], i) => (
-              <article key={title} className="lp-card">
-                <Image className="card-art" src={`/landing/benefit-${i}.webp`} alt="" width={265} height={199} />
-                <div className="lp-card-copy"><h3>{title}</h3><p>{desc}</p></div>
-              </article>
+              <Reveal key={title} className="lp-cell" delay={i * 120} variant="zoom">
+                <article className="lp-card">
+                  <Image className="card-art" src={`/landing/benefit-${i}.webp`} alt="" width={265} height={199} />
+                  <div className="lp-card-copy"><h3>{title}</h3><p>{desc}</p></div>
+                </article>
+              </Reveal>
             ))}
           </div>
+          <Reveal delay={200}>
           <div className="lp-trust" id="trust">
             <p className="lp-trust-eyebrow">TRUSTED BY LEADING FMCG TEAMS</p>
             <ul>
@@ -139,24 +144,31 @@ export default function Landing() {
               ))}
             </ul>
           </div>
+          </Reveal>
         </section>
         </Screen>
 
         {/* 03 — the business intelligence gap */}
         <Screen id="gap" wide={1800} budget={0.95}>
         <section className="lp-gap">
+          <Reveal>
           <div className="lp-gap-head">
             <p>THE BUSINESS INTELLIGENCE GAP</p>
             <h2>Your business generates data everywhere.<br />Your decisions shouldn&apos;t depend on disconnected information.</h2>
             <span>Business data lives across sales, operations, finance, products, customers and multiple systems. But leadership often still depends on delayed reports, spreadsheets and fragmented views to understand what is happening.</span>
           </div>
-          <div className="lp-strip"><Image src="/landing/supply-chain.webp" alt="Plant, depot, distributor and store — visibility fades along the chain" width={1440} height={183} /></div>
+          </Reveal>
+          <Reveal delay={150} variant="zoom">
+            <div className="lp-strip"><Image src="/landing/supply-chain.webp" alt="Plant, depot, distributor and store — visibility fades along the chain" width={1440} height={183} /></div>
+          </Reveal>
           <div className="lp-gap-cards">
             {GAPS.map(([title, desc], i) => (
-              <article key={title} className="lp-gap-card">
-                <Image className="gap-art" src={`/landing/gap-${i}.webp`} alt="" width={290} height={166} />
-                <div><h3>{title}</h3><p>{desc}</p></div>
-              </article>
+              <Reveal key={title} className="lp-cell" delay={i * 120}>
+                <article className="lp-gap-card">
+                  <Image className="gap-art" src={`/landing/gap-${i}.webp`} alt="" width={290} height={166} />
+                  <div><h3>{title}</h3><p>{desc}</p></div>
+                </article>
+              </Reveal>
             ))}
           </div>
         </section>

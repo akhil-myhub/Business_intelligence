@@ -20,54 +20,43 @@ html:has(.lp-root){background:#fff}
 .lp-screen{isolation:auto}
 /* artwork that was exported on white blends into the page background instead of showing as a white box */
 .lp-cta-bg,.lp-strip img{mix-blend-mode:multiply}
-/* hero wash fades out into the page at the bottom */
-.lp-canvas .lp-hero:before{-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent);mask-image:linear-gradient(180deg,#000 72%,transparent)}
 
 /* ── eyebrows ── */
-.lp-canvas .lp-eyebrow,.lp-canvas .sx-eyebrow,.lp-canvas .lp-gap-head p,.lp-canvas .lp-trust-eyebrow,.lp-canvas .lp-cta-eyebrow span,.lp-canvas .lp-form-eyebrow{
+.lp-canvas .sx-eyebrow,.lp-canvas .lp-cta-eyebrow span,.lp-canvas .lp-form-eyebrow{
   font:700 13px/18px var(--font);letter-spacing:.16em;text-transform:uppercase;color:var(--c-brand)}
 .lp-canvas .lp-cta-eyebrow i{background:#A6C9FF}
 
 /* ── headings: 44px centred, 48px split-layout, same weight/tracking/colour everywhere ── */
-.lp-canvas .lp-head h2,.lp-canvas .sx-head h2,.lp-canvas .lp-gap-head h2{
+.lp-canvas .sx-head h2{
   font:700 44px/52px var(--font);letter-spacing:-.8px;color:var(--c-head);margin-top:14px;height:auto}
 .lp-canvas .lp-head h2 span,.lp-canvas .sx h2 span,.lp-canvas .lp-gap-head h2 span{color:var(--c-brand)}
-.lp-canvas .sx-ask h2,.lp-canvas .sx-trace h2,.lp-canvas .sx-ins h2,.lp-canvas .sx-fc h2,.lp-canvas .out-intro h3,.lp-canvas .lp-hero h1{
+.lp-canvas .sx-ask h2,.lp-canvas .sx-trace h2,.lp-canvas .sx-ins h2,.lp-canvas .sx-fc h2,.lp-canvas .out-intro h3{
   font:700 48px/54px var(--font);letter-spacing:-1.2px;color:var(--c-head)}
-.lp-canvas .lp-hero h1{font-size:46px;line-height:54px;letter-spacing:-1px;width:auto}
-.lp-canvas .lp-hero h1 span{color:var(--c-brand)}
 .lp-canvas .lp-cta-title{font:700 56px/62px var(--font);letter-spacing:-1.4px;color:var(--c-head)}
 .lp-canvas .lp-cta-title span{color:var(--c-brand)}.lp-canvas .lp-cta-title em{color:#4911CC}
 .lp-canvas .lp-form-head h3{font:700 30px/34px var(--font);letter-spacing:-.6px;color:var(--c-head)}
 
 /* ── supporting text ── */
-.lp-canvas .lp-sub,.lp-canvas .sx-sub,.lp-canvas .lp-gap-head span,.lp-canvas .lp-cta-desc,.lp-canvas .lp-hero-content>p{
+.lp-canvas .sx-sub,.lp-canvas .lp-cta-desc{
   font:400 20px/28px var(--font);color:var(--c-body)}
-.lp-canvas .lp-hero-content>p{font-size:18px;line-height:27px;color:#26335c}
 .lp-canvas .sx-sub.left{font-size:17px;line-height:25px}
 .lp-canvas .lp-cta-desc{width:auto;max-width:720px}
 
 /* ── cards and panels: one border, radius and shadow ── */
-.lp-canvas .lp-card,.lp-canvas .lp-gap-card,.lp-canvas .card,.lp-canvas .vc,.lp-canvas .aa-card,.lp-canvas .tr-aff,.lp-canvas .tr-prog,.lp-canvas .fc-feat,.lp-canvas .fc-kpis>div,.lp-canvas .tr-head,.lp-canvas .ask-answer,.lp-canvas .out article,.lp-canvas .sx-banner,.lp-canvas .win-cta,.lp-canvas .fc-ai,.lp-canvas .ent-head{
+.lp-canvas .card,.lp-canvas .vc,.lp-canvas .aa-card,.lp-canvas .tr-aff,.lp-canvas .tr-prog,.lp-canvas .fc-feat,.lp-canvas .fc-kpis>div,.lp-canvas .tr-head,.lp-canvas .ask-answer,.lp-canvas .out article,.lp-canvas .sx-banner,.lp-canvas .win-cta,.lp-canvas .fc-ai,.lp-canvas .ent-head{
   background:rgba(255,255,255,.94);border:1px solid var(--c-line);border-radius:var(--r-card);box-shadow:var(--shadow-card)}
 .lp-canvas .cap article,.lp-canvas .ov-tile,.lp-canvas .win,.lp-canvas .tr-board,.lp-canvas .fc-board,.lp-canvas .fd-col article,.lp-canvas .ov-ent,.lp-canvas .im-out,.lp-canvas .im-panel,.lp-canvas .lp-form-card,.lp-canvas .in-ai,.lp-canvas .vis-kpis,.lp-canvas .in-kpis{
-  background:rgba(255,255,255,.88);border:1px solid var(--c-line);border-radius:var(--r-panel);box-shadow:var(--shadow-panel);backdrop-filter:blur(6px)}
+  background:rgba(255,255,255,.88);border:1px solid var(--c-line);border-radius:var(--r-panel);box-shadow:var(--shadow-panel)}
 .lp-canvas .ent-head{box-shadow:none;border:0;background:none}
-.lp-canvas .lp-card:hover,.lp-canvas .lp-gap-card:hover,.lp-canvas .ov-tile:hover,.lp-canvas .cap article:hover{border-color:#B8D2FF}
+.lp-canvas .ov-tile:hover,.lp-canvas .cap article:hover{border-color:#B8D2FF}
 /* card typography */
-.lp-canvas .lp-card h3,.lp-canvas .lp-gap-card h3,.lp-canvas .ov-tile b{font:700 22px/28px var(--font);letter-spacing:-.5px;color:var(--c-head)}
-.lp-canvas .lp-card p,.lp-canvas .lp-gap-card p,.lp-canvas .ov-tile p{font:400 16px/23px var(--font);color:var(--c-body)}
-.lp-canvas .lp-card{padding:30px 26px 24px}
-.lp-canvas .lp-card-copy{gap:10px}
+.lp-canvas .ov-tile b{font:700 22px/28px var(--font);letter-spacing:-.5px;color:var(--c-head)}
+.lp-canvas .ov-tile p{font:400 16px/23px var(--font);color:var(--c-body)}
 
 /* ── buttons: one shape and font ── */
-.lp-canvas .lp-btn,.lp-canvas .btn-out,.lp-canvas .lp-form-btn{border-radius:var(--r-btn);font:500 15px/20px var(--font)}
-.lp-canvas .lp-btn-hero{font-size:16px;height:52px;width:auto;padding:0 26px}
+.lp-canvas .lp-btn-nav,.lp-canvas .btn-out,.lp-canvas .lp-form-btn{border-radius:var(--r-btn);font:500 15px/20px var(--font)}
 .lp-canvas .lp-btn-nav{font-size:15px;height:42px;width:auto;padding:0 22px}
 .lp-canvas .lp-form-btn{height:46px;font-weight:600}
-.lp-canvas .lp-link,.lp-canvas .lp-trust-eyebrow,.lp-canvas .lp-audience{font-family:var(--font)}
-.lp-canvas .lp-link{font-weight:600;font-size:16px}
-.lp-canvas .lp-audience{font-size:15px;font-weight:500;color:#26335c}
 
 /* ── nav ── */
 .lp-canvas .lp-links>a,.lp-canvas .lp-drop>button{font:500 15px/20px var(--font)}

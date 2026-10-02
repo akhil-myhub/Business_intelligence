@@ -3,8 +3,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useGeo } from '@/hooks/useGeo';
 
-// Fades/slides children in the first time they scroll into view.
-export function Reveal({ children, className = '', delay = 0 }) {
+// Slides/fades children in the first time they scroll into view (`variant`: up | left | right | zoom).
+export function Reveal({ children, className = '', delay = 0, variant = 'up' }) {
   const ref = useRef(null);
   const [seen, setSeen] = useState(false);
   useEffect(() => {
@@ -14,7 +14,7 @@ export function Reveal({ children, className = '', delay = 0 }) {
     io.observe(el);
     return () => io.disconnect();
   }, []);
-  return <div ref={ref} className={`sx-reveal ${seen ? 'in' : ''} ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
+  return <div ref={ref} className={`sx-reveal v-${variant} ${seen ? 'in' : ''} ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
 }
 
 // Counts up to `to` when scrolled into view. `render(value)` formats the number.

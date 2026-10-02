@@ -40,7 +40,8 @@
   .lp-head h2{font-size:clamp(26px,5vw,38px);line-height:1.2}
   .lp-head .lp-sub{font-size:clamp(16px,2.4vw,20px);line-height:1.45;margin-top:12px}
   .lp-cards{width:100%;height:auto;flex-wrap:wrap}
-  .lp-card{flex:1 1 calc(50% - 7px);min-width:min(100%,300px);height:auto;align-items:center}
+  .lp-cards>.lp-cell{flex:1 1 calc(50% - 7px);min-width:min(100%,300px)}
+  .lp-card{height:auto;align-items:center}
   .lp-card-copy{width:100%}
   .lp-trust{width:100%;height:auto;padding:0;gap:26px}
   .lp-trust ul{width:100%;flex-wrap:wrap;gap:22px 0}
@@ -55,7 +56,8 @@
   .lp-strip{width:calc(100% + 48px);height:auto;margin:0 -24px;overflow:hidden}
   .lp-strip img{position:static;display:block;width:100%;height:auto}
   .lp-gap-cards{width:100%;height:auto;padding:0;flex-wrap:wrap}
-  .lp-gap-card{flex:1 1 calc(50% - 9px);min-width:min(100%,340px);height:auto}
+  .lp-gap-cards>.lp-cell{flex:1 1 calc(50% - 9px);min-width:min(100%,340px)}
+  .lp-gap-card{height:auto}
 
   /* showcase sections */
   .sx{padding:44px 24px}
@@ -118,7 +120,7 @@
 @media (max-width:640px){
   .lp-hero{padding:96px 18px 56px}
   .lp-benefits,.lp-gap{padding:0 18px}
-  .lp-card,.lp-gap-card{flex-basis:100%}
+  .lp-cards>.lp-cell,.lp-gap-cards>.lp-cell{flex-basis:100%}
   .lp-trust li:nth-child(n){width:100%}
   .lp-strip{width:calc(100% + 36px);margin:0 -18px}
   .sx{padding:36px 18px}

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Eye, EyeOff, KeyRound, LoaderCircle, LockKeyhole, Mail } from 'lucide-react';
+import { Activity, ArrowRight, Barcode, ChartColumnIncreasing, Eye, EyeOff, KeyRound, LoaderCircle, LockKeyhole, Mail, MapPinned, ShieldCheck, Sparkles } from 'lucide-react';
 import { AavtorLogo } from '@/components/AavtorLogo';
 import { logger } from '@/lib/logger';
 
@@ -16,6 +16,14 @@ const MESSAGES = {
   INVALID_EMAIL: 'Enter a valid email address.',
   INVALID_PASSWORD: 'Enter your password.'
 };
+
+const FEATURES = [
+  [MapPinned, 'Nationwide sales visibility', 'Drill from India to state, city and store — live.'],
+  [Barcode, 'Batch-level traceability', 'Follow any batch from plant to shelf in seconds.'],
+  [ChartColumnIncreasing, 'Demand-led planning', 'Forecast demand and plan capacity with confidence.']
+];
+const KPIS = [['₹892 Cr', 'Total revenue', '14.2%'], ['8.4 M', 'Units sold', '11.6%'], ['12.8%', 'Market share', '2.4%'], ['3.6%', 'Conversion', '1.9%']];
+const TRUST = [[ShieldCheck, 'Encrypted sessions'], [LockKeyhole, 'Brute-force protection'], [Activity, 'Audit-ready logs']];
 
 const GoogleIcon = () => (
   <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden><path fill="#4285F4" d="M22.5 12.2c0-.8-.1-1.4-.2-2H12v3.9h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2.1-1.9 3.3-4.7 3.3-7.9z" /><path fill="#34A853" d="M12 23c3 0 5.4-1 7.2-2.7l-3.5-2.7c-1 .7-2.2 1-3.7 1-2.8 0-5.2-1.9-6-4.5H2.4v2.8A11 11 0 0 0 12 23z" /><path fill="#FBBC05" d="M6 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2.4a11 11 0 0 0 0 9.8z" /><path fill="#EA4335" d="M12 5.4c1.6 0 3 .6 4.1 1.6l3.1-3.1A11 11 0 0 0 2.4 7.1L6 9.9c.8-2.6 3.2-4.5 6-4.5z" /></svg>
@@ -62,6 +70,37 @@ export default function LoginScreen({ next = '/ask', hint }) {
 
   return (
     <div className="login">
+      <aside className="login-aside" aria-label="About BusinessAI">
+        <div className="la-brand"><AavtorLogo size={40} /><span>BusinessAI</span><small>by Aavtor</small></div>
+
+        <div className="la-body">
+          <span className="la-pill"><i />AI BUSINESS INTELLIGENCE FOR FMCG</span>
+          <h2>Ask your business.<br /><span>Get the answer.</span></h2>
+          <p>One workspace for sales visibility, batch traceability and demand planning — from state to store, in real time.</p>
+
+          <ul className="la-feats">
+            {FEATURES.map(([Icon, title, desc]) => (
+              <li key={title}><span><Icon size={20} /></span><div><b>{title}</b><small>{desc}</small></div></li>
+            ))}
+          </ul>
+
+          <div className="la-insight" aria-hidden>
+            <div className="la-q"><Sparkles size={15} /><span className="la-type">Show sales performance in South India last quarter</span><i className="la-caret" /></div>
+            <div className="la-kpis">
+              {KPIS.map(([v, l, d]) => <div key={l}><b>{v}</b><small>{l}</small><em>▲ {d}</em></div>)}
+            </div>
+            <svg className="la-spark" viewBox="0 0 300 46" preserveAspectRatio="none"><path d="M0 38 C30 34 45 24 75 26 S125 36 150 22 S205 6 235 14 S280 4 300 2" /></svg>
+            <span className="la-tag">Sample insight</span>
+          </div>
+        </div>
+
+        <ul className="la-trust">
+          {TRUST.map(([Icon, label]) => <li key={label}><Icon size={15} />{label}</li>)}
+        </ul>
+        <div className="login-orb" aria-hidden><Orb /></div>
+      </aside>
+
+      <div className="login-main">
       <main className="login-card" aria-labelledby="login-title">
         <header className="lc-head">
           <AavtorLogo size={64} className="lc-logo" />
@@ -113,8 +152,8 @@ export default function LoginScreen({ next = '/ask', hint }) {
           )}
         </footer>
       </main>
-      <div className="login-orb" aria-hidden><Orb /></div>
       <p className="login-legal">© {new Date().getFullYear()} Aavtor · Secure sign-in protected by encrypted sessions</p>
+      </div>
     </div>
   );
 }
