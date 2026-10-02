@@ -1,11 +1,12 @@
 import React from 'react';
 import { AavtorLogo } from './AavtorLogo';
+import Backdrop from './Backdrop';
 
 // Full-page branded message (404, crashes) in the same glass card style as sign-in.
 export function StatusPage({ code, title, message, children, role }) {
   return (
     <div className="app">
-      <div className="bg" />
+      <Backdrop />
       <main className="status-page" role={role}>
         <section className="status-card">
           <AavtorLogo size={52} />

@@ -39,6 +39,9 @@ export default function SceneShell({ name, label, className = '', status, fallba
 
   const onCreated = useCallback(({ gl }) => {
     const el = gl.domElement;
+    // ANGLE/D3D reports harmless "double precision" notes while compiling three's physical-material shaders; they are
+    // logged as console issues on every load, so program-log checking is off (a real failure still renders blank).
+    gl.debug.checkShaderErrors = false;
     el.addEventListener('webglcontextlost', e => {
       e.preventDefault();
       // React unmounting a scene also releases its context (normal navigation) — only a lost context on a

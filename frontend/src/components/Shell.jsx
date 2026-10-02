@@ -14,6 +14,7 @@ import { ToastProvider, useToast } from '@/providers/ToastProvider';
 import { PrefsProvider } from '@/providers/PrefsProvider';
 import { LiveProvider, useLive } from '@/providers/LiveProvider';
 import { AavtorLogo } from './AavtorLogo';
+import Backdrop from './Backdrop';
 import { ErrorBoundary } from './ErrorBoundary';
 
 const NAV_ICONS = { ask: Bot, products: LayoutGrid, market: Globe2, stores: Store, campaigns: Megaphone, reports: BarChart3 };
@@ -188,7 +189,7 @@ function Frame({ user, children }) {
 
   return (
     <div className="app inapp">
-      <div className="bg" />
+      <Backdrop />
       <a className="skip" href="#main">Skip to content</a>
       <Rail activeId={activeId} />
       <header className="topnav">

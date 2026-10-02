@@ -1,4 +1,5 @@
 import { authConfig } from '@/config/auth';
+import Backdrop from '@/components/Backdrop';
 import LoginScreen from '@/screens/Login';
 
 export const metadata = { title: 'Sign in | BusinessAI' };
@@ -11,7 +12,7 @@ export default async function LoginPage({ searchParams }) {
   const hint = authConfig.showHint ? { email: authConfig.email, password: authConfig.password } : null;
   return (
     <div className="app">
-      <div className="bg" />
+      <Backdrop />
       <LoginScreen next={safeNext(next)} hint={hint} />
     </div>
   );
