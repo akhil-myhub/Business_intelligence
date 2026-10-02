@@ -1,7 +1,8 @@
 /* Hero — matches the "AI Business Intelligence for FMCG" slide: soft lavender/blue wash, live-product pill,
-   gradient headline, three proof points and floating metric cards around the product render. */
+   gradient headline, three proof points and the ten-screen product render. Laid out as a flex row so the
+   Screen solver can re-flow it to the window like every other section. */
 
-.lp-canvas .lp-hero{position:relative;width:100%;height:840px;overflow:visible;background:transparent;border-radius:0}
+.lp-canvas .lp-hero{position:relative;width:100%;height:auto;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:44px;padding:44px 64px 64px;overflow:visible;background:transparent;border-radius:0}
 .lp-canvas .lp-hero:before{content:'';position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:calc(100vw / var(--fit,1));transform:translateX(-50%);
   background:
     radial-gradient(900px 560px at 92% 8%,rgba(246,205,236,.75),transparent 70%),
@@ -10,7 +11,7 @@
     linear-gradient(90deg,#fff 0,#FBFAFF 45%,#F2F0FF 100%)}
 .lp-canvas .lp-hero-fade{display:none}
 
-.lp-canvas .lp-hero-content{position:absolute;left:76px;top:140px;width:600px}
+.lp-canvas .lp-hero-content{position:static;flex:none;width:560px}
 .lp-pill{display:inline-flex;align-items:center;gap:12px;height:46px;padding:0 24px;border-radius:999px;background:rgba(255,255,255,.92);border:1px solid #E6E3F6;
   font:700 15px/1 var(--font-inter),Inter,sans-serif;letter-spacing:.14em;color:#23235C;box-shadow:0 8px 22px -14px rgba(60,40,160,.35)}
 .lp-pill i{width:11px;height:11px;border-radius:50%;background:#12B76A;box-shadow:0 0 0 0 rgba(18,183,106,.5);animation:lp-ping 1.9s ease-out infinite}
@@ -32,7 +33,16 @@
 .lp-canvas .lp-audience{padding-top:24px}
 .lp-canvas .lp-audience-ico{background:#4F46E5;width:42px;height:42px}
 
-.lp-canvas .lp-hero-art{position:absolute;right:30px;top:128px;width:780px;height:640px}
-.lp-canvas .lp-hero-art img{object-fit:contain;object-position:center;mix-blend-mode:multiply}
+.lp-canvas .lp-hero-art{position:relative;right:auto;top:auto;flex:1 1 0;min-width:0;max-width:920px;height:auto;aspect-ratio:3/2;border-radius:26px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.9);box-shadow:0 40px 80px -36px rgba(50,40,150,.55),0 12px 30px -18px rgba(50,40,150,.35)}
+.lp-canvas .lp-hero-art img{object-fit:cover}
+
+@media (max-width:1099px){
+  .lp-canvas .lp-hero{flex-direction:column;align-items:stretch;gap:30px;padding:104px clamp(18px,3vw,24px) 56px}
+  .lp-canvas .lp-hero-content{width:auto}
+  .lp-canvas .lp-hero h1{font-size:clamp(40px,11vw,66px);letter-spacing:-1.6px}
+  .lp-canvas .lp-hero-content>p{width:auto;max-width:560px}
+  .lp-canvas .lp-hero-art{flex:none;width:100%;max-width:640px;height:auto;margin:0 auto}
+}
 
 @media (prefers-reduced-motion:reduce){.lp-pill i{animation:none}}

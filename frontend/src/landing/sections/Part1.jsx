@@ -39,7 +39,7 @@ function CapPreview({ i }) {
   );
   return (
     <div className="pv"><b>Demand Forecast</b>
-      <svg viewBox="0 0 220 90" className="pv-line"><path d="M5 78 L38 72 L70 60 L102 56 L134 42 L166 30 L215 14" fill="none" stroke="#0962FF" strokeWidth="2.2" /><path d="M134 42 L166 28 L215 8 L215 40 L134 42Z" fill="#0962FF" opacity=".12" /></svg>
+      <svg viewBox="0 0 220 90" preserveAspectRatio="none" className="pv-line"><path d="M5 78 L38 72 L70 60 L102 56 L134 42 L166 30 L215 14" fill="none" stroke="#0962FF" strokeWidth="2.2" vectorEffect="non-scaling-stroke" /><path d="M134 42 L166 28 L215 8 L215 40 L134 42Z" fill="#0962FF" opacity=".12" /></svg>
       <div className="pv-reco"><Lightbulb size={16} /><span><b>AI Recommendation</b>Increase inventory by 20% in key regions to meet projected demand.</span></div>
       <span className="pv-badge"><TrendingUp size={13} /> 24% Forecasted Growth</span>
     </div>

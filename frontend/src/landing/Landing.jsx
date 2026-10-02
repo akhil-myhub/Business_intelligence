@@ -88,7 +88,7 @@ export default function Landing() {
         <Nav />
 
         {/* 01 — hero */}
-        <Screen id="top" nav={false} fill={false} wide={1600} floor={0.6} budget={0.88}>
+        <Screen id="top" wide={1800} floor={0.6}>
         <section className="lp-hero">
           <div className="lp-hero-content">
             <span className="lp-pill"><i />LIVE PRODUCT <b>·</b> 2026</span>
@@ -108,12 +108,12 @@ export default function Landing() {
               <span>Built for FMCG owners, CXOs, sales, supply chain and quality teams.</span>
             </div>
           </div>
-          <div className="lp-hero-art"><Image src="/landing/hero-wireframe.webp" alt="The ten screens of the BusinessAI workspace" fill sizes="760px" quality={95} priority /></div>
+          <div className="lp-hero-art"><Image src="/landing/hero-wireframe.webp" alt="The ten screens of the BusinessAI workspace" fill sizes="920px" quality={95} priority /></div>
         </section>
         </Screen>
 
         {/* 02 — benefits + trust */}
-        <Screen id="why">
+        <Screen id="why" wide={1800} budget={0.95}>
         <section className="lp-benefits">
           <div className="lp-head">
             <p className="lp-eyebrow">WHY LEADING FMCG TEAMS CHOOSE Aavtor ERP</p>
@@ -143,7 +143,7 @@ export default function Landing() {
         </Screen>
 
         {/* 03 — the business intelligence gap */}
-        <Screen id="gap">
+        <Screen id="gap" wide={1800} budget={0.95}>
         <section className="lp-gap">
           <div className="lp-gap-head">
             <p>THE BUSINESS INTELLIGENCE GAP</p>
@@ -163,7 +163,7 @@ export default function Landing() {
         </Screen>
 
         {/* 04–12 — product showcase: live, interactive sections (each one screen) */}
-        <Screen id="platform" tone="a" wide={1900}><Platform /></Screen>
+        <Screen id="platform" tone="a" wide={2300} budget={0.97}><Platform /></Screen>
         <Screen id="ask" tone="b" wide><Ask /></Screen>
         <Screen id="visibility" tone="a" wide><Visibility /></Screen>
         <Screen id="traceability" tone="b" wide><Traceability /></Screen>

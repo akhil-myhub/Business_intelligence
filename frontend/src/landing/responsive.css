@@ -4,7 +4,7 @@
 .lp-burger{display:none}
 
 @media (max-width:1099px){
-  .lp-root{overflow-x:hidden}
+  .lp-root{overflow-x:clip}
   .lp-canvas{width:100%}
   .lp-screen{display:block;padding-top:0!important;min-height:0!important}
   .lp-screen.tone-a:before,.lp-screen.tone-b:before{background:#F3F8FF}

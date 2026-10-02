@@ -1,7 +1,3 @@
-/* Vector card illustrations (see art.jsx). Sharp at any density. */
-.art{position:relative;display:block}
-.lp-card .art{width:265px;height:199px;flex:none}
-.lp-gap-card .art{width:290px;height:166px;margin:-8px 0 -5px -9px;flex:none}
 .lp-wm{margin-left:8px;font:500 24px/1 var(--font-jakarta),'Plus Jakarta Sans',var(--font-inter),sans-serif;letter-spacing:-.4px;color:#0B1530}
 .lp-wm i{font-style:normal;color:#246FB8}
 .lp-logo{display:flex;align-items:center}
@@ -9,5 +5,5 @@
 
 
 /* Figma card illustrations (exported at 2x, shown at the Figma size) */
-.lp-card .card-art{display:block;width:265px;height:199px;margin:-1px 0 0 -1px}
-.lp-gap-card .gap-art{display:block;width:290px;height:166px;margin:-8px 0 -5px -9px;flex:none}
+.lp-card .card-art{display:block;width:100%;max-width:330px;height:auto;aspect-ratio:265/199;margin:-1px auto 0;align-self:center}
+.lp-gap-card .gap-art{display:block;width:100%;max-width:340px;height:auto;aspect-ratio:290/166;margin:-8px auto -5px;align-self:center;flex:none}
