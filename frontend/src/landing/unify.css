@@ -9,14 +9,19 @@
   font-family:var(--font)
 }
 
-/* ── one background for every section: white base with the same soft blue light ── */
-.lp-root,.lp-screen{background:#fff}
-.lp-screen:before{content:'';position:absolute;z-index:-1;inset:0;
-  background:radial-gradient(900px 520px at 88% 0%,rgba(196,219,255,.5),transparent 70%),radial-gradient(820px 520px at 0% 100%,rgba(214,231,255,.45),transparent 70%),#fff}
-.lp-screen.tone-a:before,.lp-screen.tone-b:before{background:radial-gradient(900px 520px at 88% 0%,rgba(196,219,255,.5),transparent 70%),radial-gradient(820px 520px at 0% 100%,rgba(214,231,255,.45),transparent 70%),#fff}
-.lp-hero,.lp-benefits{background:transparent}
-.lp-hero{border-radius:0}
-.lp-hero-fade{display:none}
+/* ── one continuous background for the whole page; every section is transparent on top of it ── */
+html:has(.lp-root){background:#fff}
+/* pure white page (as in the Figma frame) */
+.lp-root{background:#fff}
+.lp-screen,.lp-screen.tone-a,.lp-screen.tone-b{background:transparent}
+.lp-screen:before,.lp-screen.tone-a:before,.lp-screen.tone-b:before{display:none}
+.lp-benefits,.lp-gap,.sx{background:transparent}
+/* blend modes need to see the page behind them, so screens must not isolate their own stacking context */
+.lp-screen{isolation:auto}
+/* artwork that was exported on white blends into the page background instead of showing as a white box */
+.lp-cta-bg,.lp-strip img{mix-blend-mode:multiply}
+/* hero wash fades out into the page at the bottom */
+.lp-canvas .lp-hero:before{-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent);mask-image:linear-gradient(180deg,#000 72%,transparent)}
 
 /* ── eyebrows ── */
 .lp-canvas .lp-eyebrow,.lp-canvas .sx-eyebrow,.lp-canvas .lp-gap-head p,.lp-canvas .lp-trust-eyebrow,.lp-canvas .lp-cta-eyebrow span,.lp-canvas .lp-form-eyebrow{
@@ -75,3 +80,6 @@
 .lp-canvas .lp-area{height:84px}
 .lp-canvas .lp-privacy span{font-size:12px;line-height:18px}
 .lp-canvas .lp-promise{font:500 14px/130% var(--font);color:#19336B}
+
+/* the closing backdrop fades out at its left/right edges instead of ending in a hard line */
+.lp-cta-bg,.lp-strip img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}

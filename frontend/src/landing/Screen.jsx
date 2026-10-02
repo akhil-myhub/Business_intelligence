@@ -3,54 +3,67 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const DESIGN_W = 1440;
-const NAV = 88;        // design px reserved for the sticky header (it scales with the window width)
-const MAX_ZOOM = 1.6;  // never blow the design up beyond this on very large monitors
-const MAX_WIDE = 1800; // widest layout a "wide" section will re-flow to
+const NAV = 88;         // design px reserved for the sticky header (it scales with the window width)
+const MAX_ZOOM = 1.6;   // never blow the design up beyond this on very large monitors
+const MAX_WIDE = 2700;  // widest layout a "wide" section will re-flow to
+const MAX_PASSES = 7;   // layout-solving passes per resize
 
 /**
- * One landing section = one screen. On desktop the section sits in a full-height panel and is scaled so the
- * whole thing fits the window. `wide` sections also re-flow into the extra width of wide, short windows
- * (their grids stretch), so text stays larger than a plain shrink would leave it. Below 1100px nothing is
- * scaled — responsive.css takes over with a fluid layout.
+ * One landing section = one screen. On desktop the section sits in a full-height panel and is scaled
+ * (CSS `zoom`) so the whole thing fits the window.
  *
- * Scaling uses CSS `zoom`, so layout, text and hit-testing all stay correct (no transforms).
+ * `wide` sections additionally solve for their own layout width: the content is re-flowed wider until, once
+ * scaled to fit the window height, it also fills the window width. Every section therefore uses the whole
+ * screen, whatever its natural proportions. Below 1100px nothing is scaled — responsive.css takes over.
  */
 export default function Screen({ id, children, tone, nav = true, fill = true, wide = false, floor = 0.4 }) {
+  const maxWide = typeof wide === 'number' ? wide : MAX_WIDE; // `wide={1700}` caps how far a section may re-flow
   const inner = useRef(null);
-  const natural = useRef(0);
   const [box, setBox] = useState(null); // { s, w } — null until measured → CSS falls back to the width-based --lp-zoom
 
   useEffect(() => {
     const el = inner.current;
-    const layoutWidth = () => {
-      if (!wide) return DESIGN_W;
-      const aspect = window.innerWidth / window.innerHeight;
-      return Math.round(Math.min(MAX_WIDE, Math.max(DESIGN_W, DESIGN_W * (aspect / 1.6))));
-    };
+    let layoutW = DESIGN_W;   // the width the section is currently laid out at
+    let passes = 0;           // solver iterations since the last resize
+    let tallest = 0;          // tallest natural height seen at the locked width (content changes may grow it)
 
-    const apply = () => {
+    const fit = natural => {
       const vw = window.innerWidth;
-      if (vw < 1100) { setBox({ s: 1, w: null }); return; }
-      const w = layoutWidth();
       const z0 = Math.min(vw / DESIGN_W, MAX_ZOOM);
       const avail = window.innerHeight - (nav ? NAV * z0 : 0);
-      const byHeight = natural.current ? avail / natural.current : MAX_ZOOM;
-      setBox({ s: Math.max(floor, Math.min(vw / w, byHeight, MAX_ZOOM)), w });
-    };
-    // offsetHeight is the layout height in unscaled px, so it is unaffected by the zoom we apply (no feedback loop)
-    const measure = grow => {
-      const h = el.offsetHeight;
-      natural.current = grow ? Math.max(natural.current, h) : h;
-      apply();
+      return { vw, avail, byHeight: natural ? avail / natural : MAX_ZOOM };
     };
 
-    const ro = new ResizeObserver(() => measure(true)); // content changes (tabs, answers) may grow the section
+    const apply = natural => {
+      const { vw, byHeight } = fit(natural);
+      if (vw < 1100) { setBox({ s: 1, w: null }); return; }
+
+      if (wide && passes < MAX_PASSES) {
+        // width at which the height-fitted scale exactly fills the window width; move halfway there each pass
+        const target = Math.min(maxWide, Math.max(DESIGN_W, vw / Math.min(byHeight, MAX_ZOOM)));
+        const next = Math.round(layoutW + (target - layoutW) / 2);
+        passes += 1;
+        if (Math.abs(next - layoutW) > 12) layoutW = next; else passes = MAX_PASSES; // converged → lock
+      }
+      const w = wide ? layoutW : DESIGN_W;
+      setBox({ s: Math.max(floor, Math.min(vw / w, byHeight, MAX_ZOOM)), w });
+    };
+
+    // offsetHeight is the layout height in unscaled px, so it is unaffected by the zoom we apply (no feedback loop)
+    const onSize = () => {
+      const h = el.offsetHeight;
+      if (!wide || passes < MAX_PASSES) { tallest = h; apply(h); return; }
+      tallest = Math.max(tallest, h); // locked: only let the scale shrink if content (tabs, answers) grows
+      apply(tallest);
+    };
+    const onResize = () => { passes = 0; layoutW = wide ? layoutW : DESIGN_W; onSize(); };
+
+    const ro = new ResizeObserver(onSize);
     ro.observe(el);
-    const onResize = () => measure(false);
     window.addEventListener('resize', onResize);
     document.fonts?.ready.then(onResize);
     return () => { ro.disconnect(); window.removeEventListener('resize', onResize); };
-  }, [nav, wide, floor]);
+  }, [nav, wide, floor, maxWide]);
 
   const style = box ? { zoom: box.s, '--fit': box.s, ...(box.w ? { width: box.w } : null) } : undefined;
   const cls = ['lp-screen', tone && `tone-${tone}`, nav && 'has-nav', fill && 'fill'].filter(Boolean).join(' ');

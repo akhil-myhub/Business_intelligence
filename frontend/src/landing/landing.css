@@ -9,7 +9,7 @@ html:has(.lp-root){background:#fff;scroll-behavior:smooth}
 .lp-canvas a{text-decoration:none}
 
 /* ── nav (Frame 2147226099) ─────────────────────────────────────────── */
-.lp-nav{position:sticky;top:0;z-index:50;zoom:var(--lp-zoom,1);width:1440px;height:72px;margin:0 auto calc(-72px * var(--lp-zoom,1));padding:16px 140px;box-sizing:border-box;border-radius:0 0 18px 18px;
+.lp-nav{position:sticky;top:0;z-index:50;zoom:var(--lp-zoom,1);width:1440px;height:72px;margin:0 auto -72px;padding:16px 140px;box-sizing:border-box;border-radius:0 0 18px 18px;
   background:linear-gradient(180deg,#EAF1FF 0%,rgba(244,248,255,.94) 100%);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(9,98,255,.08),0 10px 30px -18px rgba(9,60,200,.35)}
 .lp-nav:before{content:'';position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:calc(100vw / var(--lp-zoom,1));transform:translateX(-50%);background:inherit;backdrop-filter:inherit;box-shadow:inherit;border-radius:0}
 .lp-nav-row{display:flex;justify-content:space-between;align-items:center;gap:10px;height:40px}
@@ -136,14 +136,6 @@ html:has(.lp-root){background:#fff;scroll-behavior:smooth}
 .lp-form-done b{font:600 18px var(--font-inter),Inter,sans-serif;color:#080D36}
 .lp-form-done span{color:#506399}
 .lp-form-again{margin-top:6px;border:1px solid #DCE3F3;background:#fff;border-radius:8px;padding:8px 14px;cursor:pointer;font:500 12px var(--font-inter),Inter,sans-serif;color:#0561FF}
-
-/* ── wide screens: continue each artwork's edge colours to the window edges (no hard seam at 1440 px) ── */
-.lp-bleed{position:relative}
-.lp-bleed:before,.lp-bleed:after{content:'';position:absolute;top:var(--bleed-top,0);bottom:0;width:calc(50vw / var(--fit,1));pointer-events:none;
-  background-image:var(--edges);background-repeat:no-repeat;background-size:calc(100vw / var(--fit,1)) 100%}
-.lp-bleed:before{right:100%;background-position:left top}
-.lp-bleed:after{left:100%;background-position:right top}
-.lp-strip.lp-bleed:before,.lp-strip.lp-bleed:after{height:183px;bottom:auto}
 
 /* ── one screen per section ───────────────────────────────────────────── */
 html:has(.lp-root){scroll-snap-type:y proximity}

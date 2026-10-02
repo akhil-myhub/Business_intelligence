@@ -56,7 +56,6 @@
   .lp-strip img{position:static;display:block;width:100%;height:auto}
   .lp-gap-cards{width:100%;height:auto;padding:0;flex-wrap:wrap}
   .lp-gap-card{flex:1 1 calc(50% - 9px);min-width:min(100%,340px);height:auto}
-  .lp-bleed:before,.lp-bleed:after{display:none}
 
   /* showcase sections */
   .sx{padding:44px 24px}

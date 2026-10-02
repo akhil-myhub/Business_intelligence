@@ -18,7 +18,7 @@ export function Reveal({ children, className = '', delay = 0 }) {
 }
 
 // Counts up to `to` when scrolled into view. `render(value)` formats the number.
-export function Counter({ to, render = v => Math.round(v), ms = 1100 }) {
+export function Counter({ to, decimals = 0, render, ms = 1100 }) {
   const ref = useRef(null);
   const [v, setV] = useState(0);
   useEffect(() => {
@@ -35,7 +35,7 @@ export function Counter({ to, render = v => Math.round(v), ms = 1100 }) {
     io.observe(el);
     return () => { io.disconnect(); cancelAnimationFrame(raf); };
   }, [to, ms]);
-  return <span ref={ref}>{render(v)}</span>;
+  return <span ref={ref}>{render ? render(v) : v.toFixed(decimals)}</span>;
 }
 
 export const SectionHead = ({ eyebrow, children, sub, align = 'center' }) => (

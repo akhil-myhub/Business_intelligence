@@ -307,3 +307,23 @@
 .fc-ai>span.sx-ico{flex:none;width:52px;height:52px}
 .fc-bars{height:230px}
 .im-cta .lp-btn-hero{width:auto;white-space:nowrap;padding:16px 28px}
+
+.top-list{gap:0}.top-list li{padding:11px 0;border-top:1px solid #EEF3FB;font-size:14px}.top-list li:first-child{border-top:0}
+.top-list .sx-pack{width:30px;height:30px;font-size:13px}
+.fc-row.b .card{display:flex;flex-direction:column}
+.fc-row.b .card .top-list{flex:1;align-content:space-around}
+
+/* subtitles: a section-level `p{margin:0}` reset was beating these margins, left-aligning centred subtitles */
+.sx .sx-sub{margin:16px auto 0}
+.sx .sx-sub.left{margin-left:0}
+
+/* platform: tall, evenly sized cards with larger, easier-to-read previews */
+.sx-caps{grid-auto-rows:1fr;gap:22px 170px}
+.cap,.cap article{height:100%}
+.cap article{min-height:300px;padding:24px 26px;align-items:stretch}
+.cap-copy{width:240px}
+.cap-copy h3{font-size:26px;line-height:30px}
+.cap-copy p{font-size:17px;line-height:25px}
+.cap .pv{zoom:1.14;justify-content:space-between;padding:16px}
+.cap .pv-line{flex:1;min-height:90px}
+.cap-core{width:210px;height:210px}
