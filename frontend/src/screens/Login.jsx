@@ -112,7 +112,7 @@ export default function LoginScreen({ next = '/ask', hint }) {
           {TRUST.map(([Icon, label]) => <li key={label}><Icon size={15} />{label}</li>)}
         </ul>
       </aside>
-      <div className="login-orb" aria-hidden><Orb /></div>
+      <div className="login-orb" aria-hidden><span className="lo-mark"><AavtorLogo size={110} /></span><Orb /></div>
 
       <div className="login-main">
       <main className="login-card" aria-labelledby="login-title">

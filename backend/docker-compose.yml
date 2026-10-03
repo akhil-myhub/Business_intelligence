@@ -1,0 +1,7 @@
+# Backend only. Join it with the frontend behind nginx (frontend/deploy/nginx) when deploying.
+services:
+  api:
+    build: .
+    env_file: .env
+    ports: ["8000:8000"]
+    restart: unless-stopped
