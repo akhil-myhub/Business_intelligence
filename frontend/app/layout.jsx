@@ -1,11 +1,19 @@
-import { Inter, Plus_Jakarta_Sans, Roboto } from 'next/font/google';
+import localFont from 'next/font/local';
 import { GTM_ID, gtmEnabled, gtmHeadScript, gtmNoscriptSrc } from '@/config/gtm';
 import './globals.css';
 
-// Self-hosted at build time: no render-blocking @import to Google, no third-party request at runtime.
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
-const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-jakarta', display: 'swap' });
-const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-roboto', display: 'swap' });
+// Fonts live in the repo (src/fonts, SIL OFL) — no network fetch at build or dev time, so a flaky connection can never
+// break the first render.
+const inter = localFont({ src: '../src/fonts/inter-latin-wght-normal.woff2', weight: '100 900', variable: '--font-inter', display: 'swap' });
+const jakarta = localFont({ src: '../src/fonts/plus-jakarta-sans-latin-wght-normal.woff2', weight: '200 800', variable: '--font-jakarta', display: 'swap' });
+const roboto = localFont({
+  src: [
+    { path: '../src/fonts/roboto-latin-400-normal.woff2', weight: '400', style: 'normal' },
+    { path: '../src/fonts/roboto-latin-500-normal.woff2', weight: '500', style: 'normal' }
+  ],
+  variable: '--font-roboto',
+  display: 'swap'
+});
 
 export const metadata = {
   title: 'BusinessAI | Business Intelligence',
