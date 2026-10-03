@@ -83,7 +83,7 @@ export default function LoginScreen({ next = '/ask', hint }) {
   return (
     <div className="login">
       <aside className="login-aside" aria-label="About BusinessAI">
-        <div className="la-brand"><AavtorLogo size={40} /><span>BusinessAI</span><small>by Aavtor</small></div>
+        <div className="la-brand"><AavtorLogo size={40} tone="light" /><span>BusinessAI</span><small>by Aavtor</small></div>
 
         <div className="la-body">
           <span className="la-pill"><i />AI BUSINESS INTELLIGENCE FOR FMCG</span>

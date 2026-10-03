@@ -14,8 +14,8 @@ a{color:var(--blue);text-decoration:none}
 
 /* ── backdrop: crisp on login, blurred + darkened in the app ─── */
 .app{position:relative;min-height:100vh;overflow-x:hidden}
-/* the photo sits on a gradient that approximates it, so the page never shows a flat colour while the image loads */
-.bg{position:fixed;inset:-16px;z-index:-1;background:linear-gradient(180deg,#8ca3cf 0%,#7a7a96 48%,#7d89bd 100%)}
+/* the photo sits on a tiny inline preview of itself, so the page never shows a flat colour while the image loads */
+.bg{position:fixed;inset:-16px;z-index:-1;background:url(data:image/webp;base64,UklGRnQCAABXRUJQVlA4IGgCAADQCwCdASowACAAPrFGmkmnI6IhMAqo4BYJbACdMsb8qMPzNDAbebnc7Jn/0tAC5YfZsYKqadFaoNQKRhy/jS/KwWWDhTw7YrKvLivl7GB8EvqQDFxSnU/7PCvPPRLnTSwMwumLc8oAAPlIU9G5nt/ZwR7vjtZxjEeOAez4BcUq5p2Z2OVoCWzGSNbeyj+OrgNqVP6X2Ex0OxKTv+ry/YLGkay5jr+A+ilcFvODijcw7vIvIo2AoLTQK0BE4mS4/cEaNRPfDaTtpNb/888GfqtvBRa8acteO27p/xYwn3JeP6uwJdVn077JPfp7URo9nB36KAPzonzv4bwATOOKlPyGQ+mj1O9+shPRUUDDV4GZzj1WwQdaVrwDW8QmzoCU0RsP6Hu6zTkPxi9YFnrnNOnlLUQKgp0SIJvjGvvNOEG++toUMhSFebrciUdOnXGiJxJky66uywmjIXMe8TSc1/HEfqGc6rxyXrR5aDDB6zKeePfOpkFt5cEQ2e/HXjyMWA6fqNM2BkKX5gYfbignRH2HpizqI4MQkF5hrvItJ/s8IZc+4yrFq6BYttBOZdu/RKCQ5T/GKi4BIvyg7AlMaFXPUGZfVKneO2dQzGxJhUR4cEBSdWdeo5FkeH4omo1FUicbxeQ2RDuXjVx3gzPD4ak+a2c9SOlsfrtMivmrpe5ANeMCFAV4fyxd0Tw4BVa/RrvXbi8gp4UBkbP1jPhian4duFEx78iZvk7cUpBCHp/sGuh+ux/BzE34DBSmxyl1K9N8DdiJwrXt6ZQqmrJ1vaR8/8rF47PwCVHxqoYqlrBIQBwm1FCiAAAA) center/cover no-repeat,linear-gradient(180deg,#8ca3cf 0%,#7a7a96 48%,#7d89bd 100%)}
 .bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease}
 .bg img.in{opacity:1}
 .inapp .bg{filter:blur(9px) brightness(.58) saturate(1.2)}

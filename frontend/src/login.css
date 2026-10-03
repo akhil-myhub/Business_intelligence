@@ -157,8 +157,9 @@
 .la-q svg{color:#fff}
 .la-caret{background:#fff}
 .la-kpis>div{position:relative;display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center;padding:10px;background:linear-gradient(160deg,rgba(40,70,190,.5),rgba(20,40,130,.5));border:1px solid rgba(120,160,255,.4)}
-.la-kpis .la-ic{grid-row:1/3;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:linear-gradient(145deg,#5b7dff,#7a56f0);color:#fff}
-.la-kpis b{font-size:clamp(14px,1vw,17px)}
+.la-kpis .la-ic{grid-row:1/3;display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:linear-gradient(145deg,#5b7dff,#7a56f0);color:#fff}
+.la-kpis b{font-size:clamp(13px,.95vw,16px);white-space:nowrap}
+.la-kpis small{white-space:nowrap}
 .la-kpis small{grid-column:2;margin:0}
 .la-kpis em{grid-column:1/-1;margin-top:6px}
 .la-spark{display:none}
@@ -167,7 +168,7 @@
 .la-trust svg{width:22px;height:22px;stroke-width:1.6;color:#bcd6ff}
 .login-card{width:min(440px,100%);border-radius:28px;background:rgba(255,255,255,.82)}
 .lc-submit{background:linear-gradient(90deg,#1f78e8,#6f6cf2 60%,#8a5cf0);box-shadow:0 10px 24px -8px rgba(80,90,240,.65)}
-.login-script{position:absolute;left:-6px;top:clamp(-86px,-9vh,-60px);margin:0;transform:rotate(-9deg);pointer-events:none;
+.login-script{position:absolute;left:-64px;top:clamp(-86px,-9vh,-60px);margin:0;transform:rotate(-9deg);pointer-events:none;
   font:italic 400 clamp(20px,1.9vw,28px)/1.15 'Segoe Script','Brush Script MT','Lucida Handwriting',cursive;color:#fff;text-shadow:0 2px 12px rgba(10,20,90,.5)}
 .login-script:after{content:'';display:block;width:62%;height:3px;margin-top:6px;border-radius:3px;background:linear-gradient(90deg,#66d4ff,#a78bff,transparent);transform:rotate(-3deg)}
 @media(max-width:1000px){.login>.login-orb,.login-script{display:none}}
