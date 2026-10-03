@@ -36,15 +36,6 @@
     background:linear-gradient(90deg,#0962FF,#7C5CFF,#F27BCB);animation:lp-progress linear both;animation-timeline:scroll(root)}
   @keyframes lp-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
-  /* header firms up once the page moves */
-  .lp-nav{animation:lp-nav-solid linear both;animation-timeline:scroll(root);animation-range:0 140px}
-  @keyframes lp-nav-solid{from{box-shadow:0 0 0 rgba(9,60,200,0)}to{box-shadow:0 1px 0 rgba(9,98,255,.12),0 16px 36px -16px rgba(9,60,200,.45)}}
-
-  /* hero drifts away at different speeds as you leave it */
-  .lp-canvas .lp-hero-art{animation:lp-art-away linear both;animation-timeline:scroll(root);animation-range:0 85vh}
-  @keyframes lp-art-away{to{transform:translate3d(0,90px,0) scale(.93);opacity:.35}}
-  .lp-canvas .lp-hero-content{animation:lp-copy-away linear both;animation-timeline:scroll(root);animation-range:0 85vh}
-  @keyframes lp-copy-away{to{transform:translate3d(0,-50px,0);opacity:.2}}
 }
 
 /* below 1100px nothing is zoomed or screen-sized: keep it calm */
@@ -56,6 +47,9 @@
 @media (prefers-reduced-motion:reduce){
   .sx-reveal,.sx-reveal.v-left,.sx-reveal.v-right,.sx-reveal.v-zoom{opacity:1;transform:none;transition:none}
   .lp-canvas .lp-hero-content>*,.lp-rim{animation:none}
-  .lp-progress,.lp-nav,.lp-canvas .lp-hero-art,.lp-canvas .lp-hero-content{animation:none}
+  .lp-progress{animation:none}
   .lp-card:hover .card-art,.lp-gap-card:hover .gap-art{transform:none}
 }
+
+/* off-screen sections do no animation work */
+.lp-screen[data-live='false'] *,.lp-screen[data-live='false'] *:before,.lp-screen[data-live='false'] *:after{animation-play-state:paused!important}

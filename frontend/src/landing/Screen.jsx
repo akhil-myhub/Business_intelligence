@@ -19,7 +19,16 @@ const MAX_PASSES = 7;   // layout-solving passes per resize
 export default function Screen({ id, children, tone, nav = true, fill = true, wide = false, floor = 0.4, budget = 1 }) {
   const maxWide = typeof wide === 'number' ? wide : MAX_WIDE; // `wide={1700}` caps how far a section may re-flow
   const inner = useRef(null);
+  const root = useRef(null);
   const [box, setBox] = useState(null); // { s, w } — null until measured → CSS falls back to the width-based --lp-zoom
+
+  // animations only run while the screen is (nearly) in view — see motion.css [data-live]
+  useEffect(() => {
+    const el = root.current;
+    const io = new IntersectionObserver(([e]) => { el.dataset.live = e.isIntersecting ? 'true' : 'false'; }, { rootMargin: '120px 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const el = inner.current;
@@ -68,7 +77,7 @@ export default function Screen({ id, children, tone, nav = true, fill = true, wi
   const style = box ? { zoom: box.s, '--fit': box.s, ...(box.w ? { width: box.w } : null) } : undefined;
   const cls = ['lp-screen', tone && `tone-${tone}`, nav && 'has-nav', fill && 'fill'].filter(Boolean).join(' ');
   return (
-    <div id={id} className={cls}>
+    <div id={id} ref={root} className={cls}>
       <div ref={inner} className="lp-fit" style={style}>{children}</div>
     </div>
   );
