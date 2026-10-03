@@ -87,14 +87,14 @@ function Orb({ active, variant }) {
       </group>
       <group ref={root} position={[0, stage ? -0.55 : 0, 0]}>
       <Float speed={1.6} floatIntensity={0.45} rotationIntensity={0.08}>
-        <sprite ref={halo}><spriteMaterial map={glowTexture()} color={active ? '#6d7bff' : '#7a6bff'} transparent opacity={0.4} depthWrite={false} blending={THREE.AdditiveBlending} /></sprite>
+        <sprite ref={halo}><spriteMaterial map={glowTexture()} color={light ? '#4fc3ff' : active ? '#6d7bff' : '#7a6bff'} transparent opacity={light ? 0.75 : 0.4} depthWrite={false} blending={THREE.AdditiveBlending} /></sprite>
         <group ref={group}>
           <mesh scale={1.4} renderOrder={1}>
             <sphereGeometry args={[1, 64, 64]} />
             <meshPhysicalMaterial color={light ? "#b9c9ff" : "#7a9bff"} roughness={0.05} metalness={0.1} iridescence={1}
-              clearcoat={1} envMapIntensity={2.2} transparent opacity={light ? 0.3 : 0.18} depthWrite={false} />
+              clearcoat={1} envMapIntensity={2.2} transparent opacity={light ? 0.42 : 0.18} depthWrite={false} />
           </mesh>
-          <mesh ref={core} scale={1.05}><sphereGeometry args={[1, 32, 32]} /><meshBasicMaterial color="#2a3fd0" transparent opacity={0.25} depthWrite={false} /></mesh>
+          <mesh ref={core} scale={1.05}><sphereGeometry args={[1, 32, 32]} /><meshBasicMaterial color={light ? "#2b8cff" : "#2a3fd0"} transparent opacity={light ? 0.55 : 0.25} depthWrite={false} /></mesh>
           <group ref={lat} scale={1.18}>
             <lineSegments geometry={wire} renderOrder={3}><lineBasicMaterial color={line} transparent opacity={light ? 0.35 : 0.45} depthWrite={false} /></lineSegments>
             <points geometry={ico} renderOrder={4}><pointsMaterial color={node} size={light ? 0.1 : active ? 0.085 : 0.07} sizeAttenuation transparent opacity={1} depthWrite={false} blending={blend} /></points>

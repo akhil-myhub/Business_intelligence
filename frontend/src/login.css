@@ -173,3 +173,71 @@
 .login-script:after{content:'';display:block;width:62%;height:3px;margin-top:6px;border-radius:3px;background:linear-gradient(90deg,#66d4ff,#a78bff,transparent);transform:rotate(-3deg)}
 @media(max-width:1000px){.login>.login-orb,.login-script{display:none}}
 @media(max-height:680px){.login-script{display:none}}
+
+/* ── design match (reference 1672x941): sizes follow the viewport width, vivid blue palette, sunlit photo ── */
+@media(min-width:1001px){
+  .login-aside{padding:clamp(24px,4.8vh,52px) 4.5vw}
+  .la-brand{font-size:1.95vw;gap:.8vw}
+  .la-brand .aavtor-svg{height:3vw;width:auto}
+  .la-brand small{font-size:.95vw}
+  .la-pill{font-size:.78vw;padding:.65vw 1.1vw;background:rgba(10,40,150,.5);border-color:rgba(120,190,255,.55)}
+  .login-aside h2{font-size:min(3.95vw,7.3vh);line-height:1.04}
+  .la-body{max-width:44vw;gap:clamp(10px,2vh,22px)}
+  .la-body>p{font-size:min(1.12vw,2.1vh);max-width:41vw;line-height:1.55}
+  .la-feats{gap:clamp(8px,1.7vh,18px)}
+  .la-feats li{gap:1.2vw}
+  .la-feats li>span{width:3.2vw;height:3.2vw;max-width:60px;max-height:60px}
+  .la-feats b{font-size:1.15vw}
+  .la-feats small{font-size:.95vw}
+  .la-insight{max-width:35vw;padding:1.1vw 1vw 1vw}
+  .la-q{font-size:1.08vw}
+  .la-q .la-qi{width:2.1vw;height:2.1vw;min-width:30px;min-height:30px}
+  .la-kpis{gap:.6vw}
+  .la-kpis b{font-size:1.05vw}
+  .la-kpis small{font-size:.76vw}
+  .la-kpis em{font-size:.78vw}
+  .la-trust{font-size:.92vw;gap:10px 2.2vw}
+  .la-trust svg{width:1.7vw;height:1.7vw;min-width:20px;min-height:20px}
+
+  /* the form card: 29% of the width, larger type and controls */
+  .login-card{width:clamp(400px,29vw,580px);padding:clamp(22px,3.6vh,40px) clamp(22px,2.2vw,42px) clamp(18px,3vh,30px);gap:clamp(12px,2vh,22px);border-radius:1.7vw;
+    background:rgba(255,255,255,.86);box-shadow:0 40px 90px -30px rgba(10,30,120,.55),0 10px 30px rgba(10,30,120,.14),0 0 0 1px rgba(255,255,255,.7) inset}
+  .lc-logo .aavtor-svg{height:clamp(54px,7.4vh,80px)}
+  .lc-head h1{font-size:clamp(26px,min(1.95vw,3.7vh),38px)}
+  .lc-head p{font-size:clamp(14px,1.02vw,18px)}
+  .lf label,.lf-row label{font-size:clamp(13px,.95vw,16px)}
+  .lf-box{height:clamp(42px,min(3.1vw,6vh),58px);border-radius:.6vw}
+  .lf-box input{font-size:clamp(14px,.98vw,17px)}
+  .lc-check{font-size:clamp(13px,.95vw,16px)}
+  .lc-submit{height:clamp(44px,min(3.3vw,6.4vh),60px);font-size:clamp(15px,1.1vw,19px);border-radius:.7vw}
+  .lc-sso button{height:clamp(40px,min(2.9vw,5.6vh),52px);font-size:clamp(13px,.95vw,16px);border-radius:.6vw}
+  .lc-foot{font-size:clamp(13px,.95vw,16px)}
+  .lc-or{font-size:clamp(11px,.78vw,13px)}
+  .login-script{font-size:clamp(20px,2vw,34px);left:-4vw}
+  .login>.login-orb{left:calc(50% - 17vw);bottom:9%;width:34vw;height:min(34vw,56vh)}
+  .login-legal{font-size:.82vw}
+}
+
+/* palette: deeper, more saturated blue on the left; warm sun glow top centre; blue light trail across the floor */
+.login-aside:before{background:linear-gradient(90deg,rgba(8,26,150,.82) 0%,rgba(14,48,190,.6) 46%,rgba(20,70,210,.2) 80%,transparent 100%)}
+.login:before{background:radial-gradient(36% 40% at 58% 24%,rgba(255,196,140,.36),transparent 70%),radial-gradient(40% 42% at 16% 22%,rgba(60,90,255,.34),transparent 70%),radial-gradient(34% 36% at 80% 80%,rgba(40,150,255,.3),transparent 70%)}
+.login:after{content:'';position:absolute;left:-6%;bottom:7%;width:78%;height:20%;z-index:1;pointer-events:none;border-radius:50%;
+  border-top:3px solid rgba(110,200,255,.55);box-shadow:0 -14px 50px rgba(60,160,255,.45);filter:blur(1.5px);transform:rotate(-7deg)}
+.login>.login-orb:before{inset:6%;background:radial-gradient(circle,rgba(70,200,255,.75),rgba(70,200,255,0) 66%)}
+
+/* card sits where the reference puts it (right margin ≈ 5.5vw) */
+@media(min-width:1001px){.login-main{justify-items:end;padding-right:5.5vw}}
+@media(min-width:1001px) and (max-height:820px){
+  .login-aside{padding-top:16px;padding-bottom:14px;gap:8px}
+  .login-aside h2{font-size:min(3.6vw,6.4vh)}
+  .la-body{gap:8px}
+  .la-body>p{font-size:min(1.05vw,1.9vh)}
+  .la-feats{gap:6px}
+  .la-feats li>span{width:2.6vw;height:2.6vw;min-width:34px;min-height:34px}
+  .la-insight{padding:.8vw .8vw .7vw}
+  .la-kpis{margin-top:6px}
+  .la-trust{padding:0}
+  .login-main{padding-top:clamp(56px,9vh,84px);padding-bottom:36px}
+  .login-card{gap:10px;padding-top:18px;padding-bottom:14px}
+  .lc-logo .aavtor-svg{height:46px}
+}
