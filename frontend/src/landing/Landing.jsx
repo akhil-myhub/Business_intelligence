@@ -1,11 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ChevronDown, UsersRound } from 'lucide-react';
+import { ArrowRight, Box, ChartColumn, ChevronDown, TrendingUp, UsersRound, Zap } from 'lucide-react';
 import DemoForm from './DemoForm';
 import NavMenu from './NavMenu';
 import Screen from './Screen';
 import HeroArt from './HeroArt';
+import DemoMockup from './DemoMockup';
 import { Reveal } from './kit';
 import { BrandMark, TrustIcon } from './art';
 import { Platform, Ask, Visibility } from './sections/Part1';
@@ -17,6 +18,7 @@ import './art.css';
 import './unify.css';
 import './hero.css';
 import './motion.css';
+import './mockup.css';
 import './responsive.css';
 
 // Pixel-faithful build of the "BI landing page" Figma frame (1440 px wide). Text, buttons, cards and the form
@@ -57,6 +59,7 @@ const GAPS = [
   ['Demand guesswork', 'Forecasting and resource decisions become harder without a connected view of performance.']
 ];
 
+const PROMISE_ICONS = [<ChartColumn key="a" size={22} />, <Box key="b" size={22} />, <Zap key="c" size={22} />, <TrendingUp key="d" size={22} />];
 const PROMISE = ['Unified\nData View', 'AI-Powered\nInsights', 'Faster\nDecisions', 'Real\nBusiness Impact'];
 
 function Nav() {
@@ -192,10 +195,10 @@ export default function Landing() {
             <p className="lp-cta-desc">Experience how AI turns your FMCG data into real decisions,{" "}<br />faster growth and measurable impact.</p>
             <ul className="lp-promises">
               {PROMISE.map((label, i) => (
-                <li key={label}><Image src={`/landing/promise-${i}.webp`} alt="" width={52} height={52} /><span>{label}</span></li>
+                <li key={label}><i className={`lp-pi t${i}`}>{PROMISE_ICONS[i]}</i><span>{label}</span></li>
               ))}
             </ul>
-            <Image className="lp-cta-mockup" src="/landing/cta-mockup.webp" alt="The FMCG Intelligence dashboard on laptop and phone" width={840} height={540} />
+            <DemoMockup />
           </div>
           <DemoForm />
         </section>
