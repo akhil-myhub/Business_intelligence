@@ -22,8 +22,8 @@ export default function HeroArt() {
     const y = (e.clientY - r.top) / r.height;
     cancelAnimationFrame(frame.current);
     frame.current = requestAnimationFrame(() => {
-      el.style.setProperty('--rx', `${(2 + (0.5 - y) * 8).toFixed(2)}deg`);
-      el.style.setProperty('--ry', `${(-5 + (x - 0.5) * 11).toFixed(2)}deg`);
+      el.style.setProperty('--rx', `${(7 + (0.5 - y) * 8).toFixed(2)}deg`);
+      el.style.setProperty('--ry', `${(-20 + (x - 0.5) * 10).toFixed(2)}deg`);
     });
   };
 
@@ -40,7 +40,7 @@ export default function HeroArt() {
         <div className="lp-tilt">
           <div className="lp-rim">
             <div className="lp-shot">
-              <Image src="/landing/hero-wireframe.webp" alt="The ten screens of the BusinessAI workspace" fill sizes="920px" quality={95} priority />
+              <Image src="/landing/hero-wireframe.webp" alt="The ten screens of the BusinessAI workspace" fill sizes="860px" unoptimized priority />
               <i className="lp-sweep" aria-hidden="true" />
             </div>
           </div>
