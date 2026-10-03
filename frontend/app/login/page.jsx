@@ -1,5 +1,6 @@
 import { authConfig } from '@/config/auth';
 import Backdrop from '@/components/Backdrop';
+import { preload } from 'react-dom';
 import LoginScreen from '@/screens/Login';
 
 export const metadata = { title: 'Sign in | BusinessAI' };
@@ -8,6 +9,7 @@ export const metadata = { title: 'Sign in | BusinessAI' };
 const safeNext = v => (typeof v === 'string' && v.startsWith('/') && !v.startsWith('//') && !v.startsWith('/login') ? v : '/ask');
 
 export default async function LoginPage({ searchParams }) {
+  preload('/assets/bi-background.webp', { as: 'image', fetchPriority: 'high' });
   const { next } = await searchParams;
   const hint = authConfig.showHint ? { email: authConfig.email, password: authConfig.password } : null;
   return (
