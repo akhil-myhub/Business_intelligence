@@ -92,7 +92,7 @@ export default function Landing() {
         <Nav />
 
         {/* 01 — hero */}
-        <Screen id="top" wide={1800} floor={0.6}>
+        <Screen id="top" wide={2600} floor={0.6}>
         <section className="lp-hero">
           <div className="lp-hero-content">
             <h1>See your entire business.<br /><span>From data to decisions.</span></h1>

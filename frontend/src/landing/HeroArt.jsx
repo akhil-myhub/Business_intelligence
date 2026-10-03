@@ -22,8 +22,8 @@ export default function HeroArt() {
     const y = (e.clientY - r.top) / r.height;
     cancelAnimationFrame(frame.current);
     frame.current = requestAnimationFrame(() => {
-      el.style.setProperty('--rx', `${(7 + (0.5 - y) * 8).toFixed(2)}deg`);
-      el.style.setProperty('--ry', `${(-20 + (x - 0.5) * 10).toFixed(2)}deg`);
+      el.style.setProperty('--rx', `${((0.5 - y) * 6).toFixed(2)}deg`);
+      el.style.setProperty('--ry', `${((x - 0.5) * 8).toFixed(2)}deg`);
     });
   };
 
