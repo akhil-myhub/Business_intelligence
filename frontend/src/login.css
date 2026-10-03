@@ -95,19 +95,19 @@
 .la-insight{position:relative;margin-top:clamp(2px,1vh,10px);max-width:clamp(380px,28vw,540px);padding:14px 16px 12px;border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .la-q{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:10px;background:rgba(255,255,255,.92);color:#26335c;font:500 clamp(13px,.92vw,15px)/1 var(--head)}
 .la-q svg{flex:none;color:#4F46E5}
-.la-type{display:block;white-space:nowrap;overflow:hidden;animation:la-type 1.2s steps(46) .25s both}
+.la-type{display:block;white-space:nowrap;overflow:hidden;animation:la-type 1.7s steps(46) .35s both}
 @keyframes la-type{from{clip-path:inset(0 100% 0 0)}}
 .la-caret{flex:none;width:2px;height:14px;margin-left:-7px;background:#4F46E5;animation:la-blink 1s steps(1) infinite}
 @keyframes la-blink{50%{opacity:0}}
 .la-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
 .la-kpis>div{padding:8px 9px;border-radius:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);animation:la-pop .6s cubic-bezier(.16,1,.3,1) both}
-.la-kpis>div:nth-child(1){animation-delay:.5s}.la-kpis>div:nth-child(2){animation-delay:.6s}.la-kpis>div:nth-child(3){animation-delay:.7s}.la-kpis>div:nth-child(4){animation-delay:.8s}
+.la-kpis>div:nth-child(1){animation-delay:2.05s}.la-kpis>div:nth-child(2){animation-delay:2.2s}.la-kpis>div:nth-child(3){animation-delay:2.35s}.la-kpis>div:nth-child(4){animation-delay:2.5s}
 @keyframes la-pop{from{opacity:0;transform:translateY(8px)}}
 .la-kpis b{display:block;font:700 clamp(15px,1.05vw,19px)/1.1 var(--head)}
 .la-kpis small{display:block;margin-top:3px;font:500 10px/1.1 var(--head);color:rgba(255,255,255,.65)}
 .la-kpis em{display:block;margin-top:4px;font:700 10.5px/1 var(--head);font-style:normal;color:#5ff0a8}
 .la-spark{display:block;width:100%;height:34px;margin-top:8px;overflow:visible}
-.la-spark path{fill:none;stroke:#8fd0ff;stroke-width:2.4;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:420;animation:la-draw 1.3s ease-out .9s both;filter:drop-shadow(0 0 6px rgba(120,190,255,.7))}
+.la-spark path{fill:none;stroke:#8fd0ff;stroke-width:2.4;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:420;animation:la-draw 1.5s ease-out 2.4s both;filter:drop-shadow(0 0 6px rgba(120,190,255,.7))}
 @keyframes la-draw{from{stroke-dashoffset:420}}
 .la-scene{animation:la-scene 7.5s linear both}
 @keyframes la-scene{0%{opacity:0}5%,93%{opacity:1}100%{opacity:0}}
@@ -127,7 +127,7 @@
 .la-feats li{transition:transform .25s cubic-bezier(.16,1,.3,1)}.la-feats li:hover{transform:translateX(6px)}
 
 @media(max-width:1000px){.login{grid-template-columns:minmax(0,1fr)}.login-aside{display:none}.login-main{min-height:100vh}}
-@media(max-height:840px){.login-aside{padding-top:20px;padding-bottom:18px}.la-feats li>span{width:36px;height:36px}.la-feats small{font-size:12.5px}.la-insight{padding:10px 12px}.la-spark{display:none}.la-kpis{margin-top:8px}.la-kpis>div{padding:6px 8px}.la-kpis b{font-size:14px}}
+@media(max-height:840px){.login-aside{padding-top:20px;padding-bottom:18px}.la-feats li>span{width:36px;height:36px}.la-feats small{font-size:12.5px}.la-insight{padding:10px 12px}.la-spark{height:22px;margin-top:4px}.la-kpis{margin-top:8px}.la-kpis>div{padding:6px 8px}.la-kpis b{font-size:14px}}
 @media(max-height:680px){.la-insight{display:none}}
 @media(max-height:600px){.la-feats small{display:none}}
 @media(prefers-reduced-motion:reduce){.login *,.login *:before{animation:none!important}}
@@ -162,7 +162,7 @@
 .la-kpis small{white-space:nowrap}
 .la-kpis small{grid-column:2;margin:0}
 .la-kpis em{grid-column:1/-1;margin-top:6px}
-.la-spark{display:none}
+.la-spark{display:block;height:clamp(26px,2.2vw,40px)}
 .la-tag{background:linear-gradient(90deg,#4f8bff,#6f6cff);color:#fff;top:-12px;right:16px;padding:4px 12px;font-size:10.5px}
 .la-trust{border-top:0;padding-top:0;gap:10px 28px;font-size:clamp(12.5px,.9vw,14.5px);color:#fff}
 .la-trust svg{width:22px;height:22px;stroke-width:1.6;color:#bcd6ff}
